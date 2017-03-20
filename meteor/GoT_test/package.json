@@ -1,5 +1,5 @@
 {
-  "name": "GoT",
+  "name": "GoT_test",
   "private": true,
   "scripts": {
     "start": "meteor run"
