@@ -1,7 +1,8 @@
 <template name="fieldset">
     <form action="">
       <fieldset class="fieldset">
-        <legend> Nouveau tournoi</legend>
+        <!-- Appelle la fonction "fs_title" avec la valeur "val_title" -->
+        <legend>{{fs_title val_title}}</legend>
         Nom: <input type="text" placeholder="Donne un nom">
         <input type="submit" class="btn btn-success" value="Départ">
       </fieldset>
