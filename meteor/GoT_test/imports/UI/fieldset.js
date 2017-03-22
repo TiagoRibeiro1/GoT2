@@ -14,6 +14,7 @@ Template.fieldset.events({
         event.preventDefault();
     },
     'submit .creer'(event) {
-        
+        // À MODIFIER (cf. route.js & layoutApp.html)
+        window.open('/creer','_self');
     },
 });
