@@ -1,9 +1,9 @@
 import { Template } from 'meteor/templating';
 
-import './title.html';
+import './fieldset.html';
 
-Template.title.events({
-  'click .title'() {
+Template.fieldset.events({
+  'click .fieldset'() {
       alert('test');
   },
 });
