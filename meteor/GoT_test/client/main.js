@@ -2,4 +2,4 @@ import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 
 import './main.html';
-import './title.js';
+import '../imports/UI/title.js';
