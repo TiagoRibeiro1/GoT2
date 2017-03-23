@@ -2,17 +2,17 @@
   <title>GoT - Gestion online de Tournois</title>
 </head>
 
-<body>
-  <nav class="navbar navbar-inverse navbar-fixed-top"> <!--inverse for styling - fixed top so header is fixed on top whatever scrolling-->
-    <div class="container">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="http://127.0.0.1:3000/">GoT</a>
-      </div>
-      <div class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-          <li><a target="_blank" href="http://www.google.com/">Google</a></li> <!-- href is reference for another url - target blank opens new tab -->
-        </ul>
-      </div>
-    </div>
-  </nav>
-</body>
+<template name="homepage">
+    <h1>Gestion online de Tournois</h1>
+    <!-- Appelle les template fieldset avec les arguments qui vont bien -->
+    {{> fieldset val_title="CRÉER" btn_txt="ON Y VA !" btn_link="/creer" fs_id="creer"}}
+    {{> fieldset val_title="VOIR" val_var=true btn_txt="GO" btn_link="/suivre" fs_id="suivre"}}
+</template>
+
+<template name="page_creer">
+    <h1>Créer</h1>
+</template>
+
+<template name="page_suivre">
+    <h1>Suivre</h1>
+</template>
