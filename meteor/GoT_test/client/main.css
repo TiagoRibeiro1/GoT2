@@ -21,3 +21,10 @@ body{
 .footer-link:hover{
   text-decoration: underline;
 }
+
+/*Logo style*/
+#logo {
+  margin-top : -10px;
+  height: 200%;
+  /*width: 150%;*/
+}
