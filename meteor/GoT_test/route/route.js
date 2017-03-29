@@ -14,3 +14,11 @@ Router.route('/creer', function () {
 Router.route('/suivre', function () {
   this.render('page_suivre');
 });
+
+Router.route('/gerer', function () {
+  this.render('page_gerer');
+});
+
+Router.route('/disclaimer', function () {
+  this.render('page_disclaimer');
+});
