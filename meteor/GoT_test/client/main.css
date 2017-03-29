@@ -1,3 +1,23 @@
 body{
   padding-top: 55px;
 }
+
+/*Footer style*/
+.footer{
+  position: absolute;
+  bottom: 0;
+  background-color: lightgray;
+  width: 100%;
+}
+
+.footer-link:link{
+  color: dimgray;
+}
+
+.footer-link:visited{
+  color: dimgray;
+}
+
+.footer-link:hover{
+  text-decoration: underline;
+}

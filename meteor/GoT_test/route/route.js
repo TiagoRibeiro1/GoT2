@@ -22,3 +22,7 @@ Router.route('/gerer', function () {
 Router.route('/disclaimer', function () {
   this.render('page_disclaimer');
 });
+
+Router.route('/about', function () {
+  this.render('page_about');
+});
