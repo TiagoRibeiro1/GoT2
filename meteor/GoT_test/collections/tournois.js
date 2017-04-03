@@ -3,14 +3,14 @@ SimpleSchema.extendOptions(['autoform']);
 
 Books = new Mongo.Collection("books");
 Books.attachSchema(new SimpleSchema({
-  title: {
+  name: {
     type: String,
-    label: "Title",
+    label: "Nom du tournoi",
     max: 200
   },
-  author: {
+  typeTournoi: {
     type: String,
-    label: "Author",
+    label: "Type de tournoi",
     autoform: {
       type: `select`,
       options: function(){
@@ -21,10 +21,10 @@ Books.attachSchema(new SimpleSchema({
       ]}
     }
   },
-  copies: {
-    type: Number,
-    label: "Number of copies",
-    min: 0
+  truc: {
+    type: String,
+    label: "La condition marche",
+    optional: true
   },
   lastCheckedOut: {
     type: Date,
