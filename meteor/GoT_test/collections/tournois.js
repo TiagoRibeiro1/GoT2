@@ -1,4 +1,5 @@
-import SimpleSchema from 'simpl-schema'
+import SimpleSchema from 'simpl-schema';
+SimpleSchema.extendOptions(['autoform']);
 
 Books = new Mongo.Collection("books");
 Books.attachSchema(new SimpleSchema({
@@ -9,7 +10,16 @@ Books.attachSchema(new SimpleSchema({
   },
   author: {
     type: String,
-    label: "Author"
+    label: "Author",
+    autoform: {
+      type: `select`,
+      options: function(){
+        return [
+          {label:"Championnat", value:"CHP"},
+          {label:"Eeeeeuh", value:"EEE"},
+          {label:"Elimination", value:"EL"},
+      ]}
+    }
   },
   copies: {
     type: Number,
