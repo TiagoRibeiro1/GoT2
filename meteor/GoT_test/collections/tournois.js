@@ -70,8 +70,7 @@ Tournois.attachSchema(new SimpleSchema({
     optional: true,
     custom: function(){
       // If tournament has serie of match
-        if(this.field("optionElDir").value === "PM" && this.value === "7M"){
-          // console.log(alert("salut"));
+        if(this.field("optionElDir").value === "PM" && this.value === undefined){
           return "required";
         }
     }
