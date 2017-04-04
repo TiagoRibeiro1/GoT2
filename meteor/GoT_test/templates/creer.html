@@ -1,17 +1,31 @@
 <template name="page_creer">
-    <h1>Créer</h1>
+    <h1>Création du tournoi</h1>
 
-    {{#autoForm collection="Books" id="insertBookForm" type="insert"}}
+    {{#autoForm collection="Tournois" id="insertBookForm" type="insert"}}
     <fieldset>
-      <legend>Add a Book</legend>
+      <legend>Choisis les options</legend>
       {{> afQuickField name='name'}}
       {{> afQuickField name='typeTournoi'}}
       {{#if afFieldValueIs name='typeTournoi' value='CHP'}}
-        {{> afQuickField name='truc'}}
+        {{> afQuickField name='optionChmpt'}}
       {{/if}}
-      {{> afQuickField name='summary' rows=6}}
-      {{> afQuickField name='lastCheckedOut'}}
+      {{#if afFieldValueIs name='typeTournoi' value='ELD'}}
+        {{> afQuickField name='optionElDir'}}
+        {{#if afFieldValueIs name='optionElDir' value='PM'}}
+          {{> afQuickField name='optionSerie'}}
+        {{/if}}
+      {{/if}}
+      {{#if afFieldValueIs name='typeTournoi' value='CHE'}}
+        {{> afQuickField name='optionChmpt'}}
+        {{> afQuickField name='optionElDir'}}
+        {{#if afFieldValueIs name='optionElDir' value='PM'}}
+          {{> afQuickField name='optionSerie'}}
+        {{/if}}
+      {{/if}}
+      {{> afQuickField name='joueurs' rows=4}}
     </fieldset>
-    <button type="submit" class="btn btn-primary">Insert</button>
+    <h4>Résumé</h4>
+      <p>Mode de tournoi : .</p>
+    <button type="submit" class="btn btn-primary">Créer</button>
   {{/autoForm}}
 </template>

@@ -1,8 +1,9 @@
 import SimpleSchema from 'simpl-schema';
 SimpleSchema.extendOptions(['autoform']);
 
-Books = new Mongo.Collection("books");
-Books.attachSchema(new SimpleSchema({
+Tournois = new Mongo.Collection("tournois");
+
+Tournois.attachSchema(new SimpleSchema({
   name: {
     type: String,
     label: "Nom du tournoi",
@@ -12,29 +13,48 @@ Books.attachSchema(new SimpleSchema({
     type: String,
     label: "Type de tournoi",
     autoform: {
-      type: `select`,
+      type: `select-radio`,
       options: function(){
         return [
           {label:"Championnat", value:"CHP"},
-          {label:"Eeeeeuh", value:"EEE"},
-          {label:"Elimination", value:"EL"},
+          {label:"Elimination", value:"ELD"},
+          {label:"Championnat et playoff", value:"CHE"}
       ]}
     }
   },
-  truc: {
-    type: String,
-    label: "La condition marche",
-    optional: true
+  optionChmpt: {
+    type: Number,
+    label: "Nombre de match contre chaque équipe",
+    max: 8
   },
-  lastCheckedOut: {
-    type: Date,
-    label: "Last date this book was checked out",
-    optional: true
-  },
-  summary: {
+  optionElDir: {
     type: String,
-    label: "Brief summary",
-    optional: true,
-    max: 1000
+    label: "Format pour l'élimination directe",
+    autoform: {
+      type: `select-radio`,
+      options: function(){
+        return [
+          {label:"Match unique", value:"1M"},
+          {label:"Match A/R", value:"2M"},
+          {label:"Série", value:"PM"}
+      ]}
+    }
+  },
+  optionSerie: {
+    type: String,
+    label: "au meilleur des combien de matchs ?",
+    autoform: {
+      type: `select-radio-inline`,
+      options: function(){
+        return [
+          {label:"3", value:"3M"},
+          {label:"5", value:"5M"},
+          {label:"7", value:"7M"}
+      ]}
+    }
+  },
+  joueurs: {
+    type: String,
+    label: "Liste des équipes (1 par ligne)"
   }
 }, { tracker: Tracker }));
