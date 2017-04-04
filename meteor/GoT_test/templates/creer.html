@@ -6,18 +6,23 @@
       <legend>Choisis les options</legend>
       {{> afQuickField name='name'}}
       {{> afQuickField name='typeTournoi'}}
+      <!-- Championship tournament -->
       {{#if afFieldValueIs name='typeTournoi' value='CHP'}}
         {{> afQuickField name='optionChmpt'}}
       {{/if}}
+      <!-- Direct elimination tournament -->
       {{#if afFieldValueIs name='typeTournoi' value='ELD'}}
         {{> afQuickField name='optionElDir'}}
+        <!-- Playoff serie field-->
         {{#if afFieldValueIs name='optionElDir' value='PM'}}
           {{> afQuickField name='optionSerie'}}
         {{/if}}
       {{/if}}
+      <!-- Championship and playoff tournament -->
       {{#if afFieldValueIs name='typeTournoi' value='CHE'}}
         {{> afQuickField name='optionChmpt'}}
         {{> afQuickField name='optionElDir'}}
+        <!-- Playoff serie field-->
         {{#if afFieldValueIs name='optionElDir' value='PM'}}
           {{> afQuickField name='optionSerie'}}
         {{/if}}
