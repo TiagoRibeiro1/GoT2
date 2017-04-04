@@ -70,12 +70,10 @@ Tournois.attachSchema(new SimpleSchema({
     optional: true,
     custom: function(){
       // If tournament has serie of match
-      // if(this.field("optionChmpt" != "CHP")){
         if(this.field("optionElDir").value === "PM" && this.value === "7M"){
           // console.log(alert("salut"));
           return "required";
         }
-      // }
     }
   },
   joueurs: {
