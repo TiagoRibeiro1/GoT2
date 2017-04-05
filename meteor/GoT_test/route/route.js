@@ -26,3 +26,12 @@ Router.route('/disclaimer', function () {
 Router.route('/about', function () {
   this.render('page_about');
 });
+
+
+Router.route('/post/:_id', {
+    template: 'page_post',
+    data: function(){
+        // Ne fonctionne actullement pas
+        //return tournois.findOne({ _id: this.params._id });
+    }
+});
