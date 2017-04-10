@@ -1,4 +1,12 @@
 <template name="page_post">
-    <h1>Post {{name}}</h1>
+    <h1>{{name}}</h1>
+    <p>Type de tournoi: {{typeTournoi}}</p>
+    {{#if optionElDir}}
+        <p>Option d'élimination directe: {{optionElDir}}</p>
+    {{/if}}
+    {{#if optionSerie}}
+        <p>Option de série: {{optionSerie}}</p>
+    {{/if}}
+    Joueurs: <pre>{{joueurs}}</pre>
     
 </template>

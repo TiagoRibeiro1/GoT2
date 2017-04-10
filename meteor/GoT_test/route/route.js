@@ -32,6 +32,6 @@ Router.route('/post/:_id', {
     template: 'page_post',
     data: function(){
         // Ne fonctionne actullement pas
-        //return tournois.findOne({ _id: this.params._id });
+        return Tournois.findOne({ _id: this.params._id });
     }
 });
