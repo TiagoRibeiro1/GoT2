@@ -28,10 +28,9 @@ Router.route('/about', function () {
 });
 
 
-Router.route('/post/:_id', {
-    template: 'page_post',
+Router.route('/:_id', {
+    template: 'page_suivre',
     data: function(){
-        // Ne fonctionne actullement pas
         return Tournois.findOne({ _id: this.params._id });
     }
 });
