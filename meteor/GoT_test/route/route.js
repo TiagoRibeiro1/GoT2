@@ -23,8 +23,16 @@ Router.route('/suivre', function () {
   this.render('page_suivre');
 });
 
-Router.route('/gerer', function () {
-  this.render('page_gerer');
+Router.route('/gerer', {
+  template: 'page_gerer',
+  onBeforeAction: function() {
+    let currentUser = Meteor.userId();
+    if (currentUser) {
+      this.next();
+    } else {
+      this.render("login");
+    }
+  }
 });
 
 Router.route('/disclaimer', function () {

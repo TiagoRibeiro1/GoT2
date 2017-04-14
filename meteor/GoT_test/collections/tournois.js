@@ -4,11 +4,24 @@ SimpleSchema.extendOptions(['autoform']);
 Tournois = new Mongo.Collection("tournois");
 
 Tournois.attachSchema(new SimpleSchema({
+// Récupère l'utilisateur actuel et l'assigne comme admin du tournoi
+  admin: {
+    type: String,
+    autoValue: function () {
+      return Meteor.userId();
+    }
+  }, // Assigne le moment où a été créé le tournoi
+  date: {
+    type: Date,
+    autoValue: function () {
+      return new Date();
+    }
+  }, // Nom du tournoi
   name: {
     type: String,
     label: "Nom du tournoi",
     max: 200
-  },
+  }, // Type de tournoi
   typeTournoi: {
     type: String,
     label: "Type de tournoi",
@@ -21,20 +34,20 @@ Tournois.attachSchema(new SimpleSchema({
           {label:"Championnat et playoff", value:"CHE"}
       ]}
     }
-  },
+  }, // Option du nbr de match du Championnat
   optionChmpt: {
     type: Number,
     label: "Nombre de match contre chaque équipe",
     max: 8,
-    min: 2,
+    min: 1,
     optional: true,
     custom: function(){
-      // If tournament is Championnat or championat & playoff
+      // Si ce n'est pas une élimination directe, champ obligatoire
       if(this.field("typeTournoi").value !== "ELD" && this.value === undefined){
         return "required";
       }
     }
-  },
+  }, // Option pour l'élimination directe
   optionElDir: {
     type: String,
     label: "Format pour l'élimination directe",
@@ -43,14 +56,14 @@ Tournois.attachSchema(new SimpleSchema({
       options: function(){
         return [
           {label:"Match unique", value:"1M"},
-          {label:"Match A/R", value:"2M"},
-          {label:"Série", value:"PM"}
+          {label:"Match A/R", value:"AR"},
+          {label:"Série", value:"Serie"}
       ]}
     },
     optional: true,
     custom: function(){
-      // If tournament is Elimination directe
-      if(this.field("typeTournoi").value === "ELD" && this.value === undefined){
+      // Si ce n'est pas un championnat, alors le champ est obligatoire
+      if(this.field("typeTournoi").value !== "CHP" && this.value === undefined){
         return "required";
       }
     }
@@ -69,8 +82,8 @@ Tournois.attachSchema(new SimpleSchema({
     },
     optional: true,
     custom: function(){
-      // If tournament has serie of match
-        if(this.field("optionElDir").value === "PM" && this.value === undefined){
+      // Si Serie a été sélectionné, champ obligatoire
+        if(this.field("optionElDir").value === "Serie" && this.value === undefined){
           return "required";
         }
     }

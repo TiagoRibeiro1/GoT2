@@ -1,3 +1,8 @@
 <template name="page_gerer">
-    <h1>Gérer</h1>
+  <h1>Gérer</h1>
+  <ul>
+    {{#each tournoisCrees}}
+    <li>{{name}}</li>
+    {{/each}}
+  </ul>
 </template>

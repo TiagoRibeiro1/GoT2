@@ -14,7 +14,7 @@
       {{#if afFieldValueIs name='typeTournoi' value='ELD'}}
         {{> afQuickField name='optionElDir'}}
         <!-- Playoff serie field-->
-        {{#if afFieldValueIs name='optionElDir' value='PM'}}
+        {{#if afFieldValueIs name='optionElDir' value='Serie'}}
           {{> afQuickField name='optionSerie'}}
         {{/if}}
       {{/if}}
@@ -23,7 +23,7 @@
         {{> afQuickField name='optionChmpt'}}
         {{> afQuickField name='optionElDir'}}
         <!-- Playoff serie field-->
-        {{#if afFieldValueIs name='optionElDir' value='PM'}}
+        {{#if afFieldValueIs name='optionElDir' value='Serie'}}
           {{> afQuickField name='optionSerie'}}
         {{/if}}
       {{/if}}
