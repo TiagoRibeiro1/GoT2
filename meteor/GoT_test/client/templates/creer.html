@@ -4,7 +4,7 @@
     {{#autoForm collection="Tournois" id="insertBookForm" type="insert"}}
     <fieldset>
       <legend>Choisis les options</legend>
-      {{> afQuickField name='name'}}
+      {{> afQuickField name='name' autofocus=""}}
       {{> afQuickField name='typeTournoi'}}
       <!-- Championship tournament -->
       {{#if afFieldValueIs name='typeTournoi' value='CHP'}}
@@ -27,7 +27,7 @@
           {{> afQuickField name='optionSerie'}}
         {{/if}}
       {{/if}}
-      {{> afQuickField name='joueurs' rows=4}}
+      {{> afQuickField name='joueurs'}}
     </fieldset>
     <h4>Résumé</h4>
       <p>Mode de tournoi : .</p>

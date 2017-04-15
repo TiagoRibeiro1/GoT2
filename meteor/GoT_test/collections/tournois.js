@@ -89,7 +89,12 @@ Tournois.attachSchema(new SimpleSchema({
     }
   },
   joueurs: {
-    type: String,
-    label: "Liste des équipes (1 par ligne)"
-  }
+    type: Array,
+    label: "Liste des équipes (1 par ligne)",
+    autoform: {
+      type:'textarea',
+      rows: 5
+    }
+  },
+  'joueurs.$': String
 }, { tracker: Tracker }));
