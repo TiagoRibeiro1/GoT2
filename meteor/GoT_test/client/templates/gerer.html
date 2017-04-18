@@ -1,8 +1,23 @@
 <template name="page_gerer">
   <h1>Gérer</h1>
-  <ul>
-    {{#each tournoisCrees}}
-    <li>{{name}}</li>
-    {{/each}}
-  </ul>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nom du tournoi</th>
+        <th>Nombre de joueurs</th>
+        <th>Date de création</th>
+        <th>Supprimer</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each tournoisCrees}}
+      <tr>
+        <td>{{name}}</td>
+        <td>{{joueurs.count}}</td>
+        <td>{{date}}</td>
+        <td><span class="glyphicon glyphicon-remove suppr-tournoi"></span></td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
 </template>

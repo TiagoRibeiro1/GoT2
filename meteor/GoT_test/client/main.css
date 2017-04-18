@@ -2,6 +2,9 @@ body{
   padding-top: 55px;
 }
 
+.glyphicon-remove {
+  color: red;
+}
 /*Footer style*/
 .footer{
   position: absolute;
