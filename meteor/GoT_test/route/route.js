@@ -51,7 +51,7 @@ Router.route('/login', function () {
   this.render('login');
 });
 
-Router.route('/:_id', {
+Router.route('/suivre/:_id', {
     template: 'page_suivre',
     data: function(){
         return Tournois.findOne({ _id: this.params._id });
