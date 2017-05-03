@@ -29,14 +29,6 @@ body{
   /*width: 150%;*/
 }
 
-#Glogo{
-  position: absolute;
-    top: 15px;
-    right: 10px;
-    width: 20px;
-    height: 20px;
-  }
-
 #h1{
   text-align: center;
   border-bottom-style: solid;
@@ -119,10 +111,6 @@ body{
     border-radius: 40px;
 }
 
-.legend{
-  border: 10px auto 10 auto solid #333;
-}
-
 .navbar-brand {
     float: center;
     height: 50px;
@@ -203,4 +191,52 @@ body{
 #p1{
   text-align: center;
 }
+#titregerer{
+  text-align: center;
+  border-bottom-style: solid;
+  border-bottom-color: #5cb85c;
+  padding-bottom: 20px;
+  font-size: 36px;
+}
 
+#aucuntournoi{
+text-align: center;
+color: #000000;
+}
+
+#resume{
+  text-align: center;
+  border-bottom-style: solid;
+  border-bottom-color: #5cb85c;
+  padding-bottom: 20px;
+  font-size: 36px;
+}
+
+#creation{
+  text-align: center;
+  border-bottom-style: solid;
+  border-bottom-color: #5cb85c;
+  padding-bottom: 20px;
+  font-size: 36px;
+}
+.btn-success {
+  display: block;
+    padding: 6px 12px;
+    margin: 10px auto 0 auto;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 40px;
+}

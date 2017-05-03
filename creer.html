@@ -1,5 +1,5 @@
 <template name="page_creer">
-    <h1>Création du tournoi</h1>
+    <h1 id="creation">Création du tournoi</h1>
 
     {{#autoForm collection="Tournois" id="insertBookForm" type="insert"}}
     <fieldset>
@@ -29,7 +29,7 @@
       {{/if}}
       {{> afQuickField name='joueurs'}}
     </fieldset>
-    <h4>Résumé</h4>
+    <h4 id="resumé">Résumé</h4>
       <p>Mode de tournoi : .</p>
     <button type="submit" class="btn btn-primary">Créer</button>
   {{/autoForm}}

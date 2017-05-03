@@ -1,4 +1,5 @@
 <template name="page_suivre">
+<<<<<<< HEAD
   {{> suivre}}
 </template>
 
@@ -56,4 +57,19 @@
     <td>a</td>
     <td></td>
     <td></td>
+=======
+    {{#if name}}
+        <h1>{{name}}</h1>
+        <p>Type de tournoi: {{typeTournoi}}</p>
+        {{#if optionElDir}}
+            <p>Option d'élimination directe: {{optionElDir}}</p>
+        {{/if}}
+        {{#if optionSerie}}
+            <p>Option de série: {{optionSerie}}</p>
+        {{/if}}
+        Joueurs: <pre class="joueurs">{{joueurs}}</pre>
+    {{else}}
+        {{> fieldset val_title="VOIR" val_var=true btn_txt="GO" btn_link="/suivre" fs_id="suivre"}}
+    {{/if}}
+>>>>>>> 20efcd1071e56e7f7038fdc91d1e507e32b4455a
 </template>
