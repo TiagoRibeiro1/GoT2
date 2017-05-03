@@ -1,61 +1,15 @@
 <template name="page_suivre">
-  {{> suivre}}
-</template>
-
-<template name="suivre">
-  {{#if name}}
-    {{matchCrees}}
-
-    <h1>{{name}}</h1>
-  <!-- <p>Type de tournoi: {{typeTournoi}}</p>
-  {{#if optionElDir}}
-  <p>Option d'élimination directe: {{optionElDir}}</p>
-  {{/if}}
-  {{#if optionSerie}}
-  <p>Option de série: {{optionSerie}}</p>
-  {{/if}}
-  Joueurs: <pre class="joueurs">{{joueurs}}</pre> -->
-
-  <h3>Classement</h3>
-  <table class="table table-striped table-responsive">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Joueur</th>
-        <th>J</th>
-        <th>V</th>
-        <th>N</th>
-        <th>D</th>
-        <th>+</th>
-        <th>-</th>
-        <th>+/-</th>
-        <th>PTS</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      {{#each joueurs}}
-        <tr>
-          {{> test}}
-        </tr>
-      {{/each}}
-    </tbody>
-  </table>
-  {{else}}
-    {{> fieldset val_title="VOIR" val_var=true btn_txt="GO" btn_link="/suivre" fs_id="suivre"}}
-  {{/if}}
-</template>
-
-<template name="test">
-  {{#each element in position}}
-    <td>{{element}}</td>
-  {{/each}}
-  <td></td>
-  <td>sa</td>
-  <td>s</td>
-  <td></td>
-  <td>a</td>
-  <td></td>
-  <td></td>
-  <td></td>
+    {{#if name}}
+        <h1>{{name}}</h1>
+        <p>Type de tournoi: {{typeTournoi}}</p>
+        {{#if optionElDir}}
+            <p>Option d'élimination directe: {{optionElDir}}</p>
+        {{/if}}
+        {{#if optionSerie}}
+            <p>Option de série: {{optionSerie}}</p>
+        {{/if}}
+        Joueurs: <pre class="joueurs">{{joueurs}}</pre>
+    {{else}}
+        {{> fieldset val_title="VOIR" val_var=true btn_txt="GO" btn_link="/suivre" fs_id="suivre"}}
+    {{/if}}
 </template>

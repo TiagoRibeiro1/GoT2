@@ -1,18 +1,18 @@
 <template name="page_enregistrer">
-    <h2>Rejoins la communauté</h2>
+    <h1 id="Rejoindre">Rejoins la communauté</h1>
     <form class="register">
-        <p>Email: <input type="email" name="email"></p>
-        <p>Mot de passe: <input type="password" name="password"></p>
-        <p><input type="submit" value="Suivant"></p>
+        <p><input type="email" name="email" placeholder="Email"></p>
+        <p><input type="password" name="password" placeholder="Mot de passe"></p>
+        <p><input id="input" type="submit" value="Suivant"></p>
     </form>
 </template>
 
 <template name="login">
-    <h2>Login</h2>
+    <h1 id="login">Login</h1>
     <form class="login">
-        <p>Email: <input type="email" name="email"></p>
-        <p>Mot de passe: <input type="password" name="password"></p>
-        <p><input type="submit" value="Login"></p>
+        <p><input type="email" name="email" placeholder="Email"></p>
+        <p><input type="password" name="password" placeholder="Mot de passe"></p>
+        <p><input type="submit" value="Login" id="log"></p>
     </form>
-    <p>Pas encore enregistré ? <a href="/senregistrer">C'est ici que ça se passe !</a></p>
+    <p id="p1">Pas encore enregistré ? <a href="/senregistrer">C'est ici que ça se passe !</a></p>
 </template>
