@@ -1,7 +1,9 @@
-import { Template } from 'meteor/templating';
+Template.page_suivre.helpers({
+  'matchCrees': function(){
+    console.log(Matchs.find({idTournoi: this._id}));
+  }
+});
 
-
-<<<<<<< HEAD
 Template.test.helpers({
   'position': function(){
     let tournoi = Tournois.findOne({idTournoi: this._id});
@@ -65,11 +67,4 @@ Template.test.helpers({
         //return Matchs.find({ $or: [{"j1.name": nj},{"j2.name": nj}], termine:true, idTournoi:idT}).count();
         //return e;
     }
-=======
-Template.page_suivre.events({
-  'click .joueurs'() {
-    // test
-    alert('ok');
-  },
->>>>>>> 20efcd1071e56e7f7038fdc91d1e507e32b4455a
 });
