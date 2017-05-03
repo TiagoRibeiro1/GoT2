@@ -34,9 +34,11 @@
     </thead>
 
     <tbody>
-      {{#each joueurs}}
+      {{#each joueur in joueurs}}
         <tr>
-          {{> test}}
+            <td>#</td>
+            <td>{{joueur}}</td>
+          {{> test name=joueur tournoi=_id}}
         </tr>
       {{/each}}
     </tbody>
@@ -47,15 +49,11 @@
 </template>
 
 <template name="test">
-  {{#each element in position}}
-    <td>{{element}}</td>
-  {{/each}}
-  <td></td>
-  <td>sa</td>
-  <td>s</td>
-  <td></td>
-  <td>a</td>
-  <td></td>
-  <td></td>
-  <td></td>
+    <td>{{matchJoue name tournoi}}</td>
+    <td>{{matchGagne name tournoi}}</td>
+    <td>s</td>
+    <td></td>
+    <td>a</td>
+    <td></td>
+    <td></td>
 </template>
