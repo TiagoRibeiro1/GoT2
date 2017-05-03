@@ -1,0 +1,27 @@
+<template name="page_gerer">
+  <h1>Gérer</h1>
+  {{#if tournoisCrees.count}}
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nom du tournoi</th>
+        <th>Nombre de joueurs</th>
+        <th>Date de création</th>
+        <th>Supprimer</th>
+      </tr>
+    </thead>
+    <tbody>
+        {{#each tournoisCrees}}
+        <tr>
+          <td>{{name}}</td>
+          <td>{{joueurs}}</td>
+          <td>{{date}}</td>
+          <td><span class="glyphicon glyphicon-remove suppr-tournoi"></span></td>
+        </tr>
+        {{/each}}
+    </tbody>
+  </table>
+  {{else}}
+  <h3><a href="/creer">Tu n'as actuellement aucun tournoi, crées en un !</a></h3>
+  {{/if}}
+</template>
