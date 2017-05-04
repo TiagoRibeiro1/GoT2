@@ -21,13 +21,41 @@ Template.test.helpers({
     return Matchs.find().count();
   },
     matchJoue: function(nj, idT) {
-        
-        return Matchs.find({ $or: [{"j1.name": nj},{"j2.name": nj}], termine:true, idTournoi:idT}).count();
+
+        return Matchs.find({ $or: [{"j1.name": nj},{"j2.name": nj}], termine: true, idTournoi: idT}).count();
         //return e;
     },
-    
+    matchPerdu: function(nj, idT) {
+
+      return Matchs.find({
+        idTournoi: idT,
+        termine: true,
+        $or: [ // TODO Comment faire sans $where ???
+          {$and: [{"j1.name": nj}, {$where: "this.j1.score < this.j2.score"}]},
+          {$and: [{"j2.name": nj}, {$where: "this.j2.score < this.j1.score"}]}
+        ]}).count();
+    },
+    matchNul: function(nj, idT) {
+
+      return Matchs.find({
+        idTournoi: idT,
+        termine: true,
+        $or: [ // TODO Comment faire sans $where ???
+          {$and: [{"j1.name": nj}, {$where: "this.j1.score == this.j2.score"}]},
+          {$and: [{"j2.name": nj}, {$where: "this.j2.score == this.j1.score"}]}
+        ]}).count();
+    },
+
     matchGagne: function(nj, idT) {
-        
+
+      return Matchs.find({
+        idTournoi: idT,
+        termine: true,
+        $or: [ // TODO Comment faire sans $where ???
+          {$and: [{"j1.name": nj}, {$where: "this.j1.score > this.j2.score"}]},
+          {$and: [{"j2.name": nj}, {$where: "this.j2.score > this.j1.score"}]}
+        ]}).count();
+
         //si idTournoi = idT
         //  si termine = true
         //    si j1.score = j2.score
@@ -41,29 +69,24 @@ Template.test.helpers({
         //        alors gagne
         //        exit
         //return gagne
-        
+
         //termine:true && idTournoi:idT && j1.score != j2.score && [ j1.name = nj && j1.score > j2.score ] || [ j2.name = nj && j1.score < j2.score ]
-        
-        
-        return Matchs.find({
-            termine:true,
-            idTournoi:idT,
-            "j1.score": parseInt("j1.score")
-            /*$or:[{
-                $and:[{
-                    "j1.name": nj
-                },{
-                    "j1.score":{ $gt: "j2.score"} 
-                }]
-            },{
-                $and:[{
-                    "j2.name": nj
-                },{
-                    "j2.score": {$gt: "j1.score"}
-                }]
-            }]*/
-        }).count();
-        
+
+
+            // $or:[{
+            //     $and:[{
+            //         "j1.name": nj
+            //     },{
+            //         "j1.score":{ $gt: "j2.score"}
+            //     }]
+            // },{
+            //     $and:[{
+            //         "j2.name": nj
+            //     },{
+            //         "j2.score": {$gt: "j1.score"}
+            //     }]
+            // }]
+
         //return Matchs.find({ $or: [{"j1.name": nj},{"j2.name": nj}], termine:true, idTournoi:idT}).count();
         //return e;
     }
