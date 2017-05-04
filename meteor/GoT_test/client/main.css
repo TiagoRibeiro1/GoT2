@@ -177,6 +177,10 @@ body{
   text-align: center;
 }
 
+.glyphicon-remove {
+  color:red;
+}
+
 #log{
   display: block;
     padding: 6px 12px;
@@ -203,4 +207,3 @@ body{
 #p1{
   text-align: center;
 }
-

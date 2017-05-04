@@ -1,7 +1,7 @@
 <template name="page_creer">
     <h1>Création du tournoi</h1>
 
-    {{#autoForm collection="Tournois" id="insertBookForm" type="insert"}}
+    {{#autoForm collection="Tournois" id="creationTournoi" type="insert"}}
     <fieldset>
       <legend>Choisis les options</legend>
       {{> afQuickField name='name' autofocus=""}}
@@ -29,8 +29,8 @@
       {{/if}}
       {{> afQuickField name='joueurs'}}
     </fieldset>
-    <h4>Résumé</h4>
-      <p>Mode de tournoi : .</p>
+    <!-- <h4>Résumé</h4>
+      <p>Mode de tournoi : .</p> -->
     <button type="submit" class="btn btn-primary">Créer</button>
   {{/autoForm}}
 </template>
