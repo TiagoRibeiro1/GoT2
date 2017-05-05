@@ -1,32 +1,20 @@
 Template.page_suivre.helpers({
   'matchCrees': function(){
-    console.log(Matchs.find({idTournoi: this._id}));
+    console.log(Matchs.find({}).forEach(function(obj) {
+      return obj._id;
+    }));
   }
 });
 
 Template.test.helpers({
-  'position': function(){
-    let tournoi = Tournois.findOne({idTournoi: this._id});
-    for(i = 0; i < tournoi.joueurs.length; i++){
-      let array = [];
-      // for(i = 0; i < 10; i++){
-        array.push(i)
-        array.push(tournoi.joueurs[i]);
-        array.push("ciao")
-        return array;
-      // }
-    }
-  },
     matchCount: function() {
-    return Matchs.find().count();
-  },
+      return Matchs.find().count();
+    },
     matchJoue: function(nj, idT) {
-
         return Matchs.find({ $or: [{"j1.name": nj},{"j2.name": nj}], termine: true, idTournoi: idT}).count();
         //return e;
     },
     matchPerdu: function(nj, idT) {
-
       return Matchs.find({
         idTournoi: idT,
         termine: true,
@@ -36,7 +24,6 @@ Template.test.helpers({
         ]}).count();
     },
     matchNul: function(nj, idT) {
-
       return Matchs.find({
         idTournoi: idT,
         termine: true,
@@ -47,7 +34,6 @@ Template.test.helpers({
     },
 
     matchGagne: function(nj, idT) {
-
       return Matchs.find({
         idTournoi: idT,
         termine: true,
@@ -55,7 +41,74 @@ Template.test.helpers({
           {$and: [{"j1.name": nj}, {$where: "this.j1.score > this.j2.score"}]},
           {$and: [{"j2.name": nj}, {$where: "this.j2.score > this.j1.score"}]}
         ]}).count();
+    },
 
+    scorePositif: function(nj, idT) {
+      let scorePos = 0;
+
+      Matchs.find({
+        idTournoi: idT,
+        termine: true,
+        "j1.name": nj
+      }).forEach(function(match){
+        scorePos += match.j1.score;
+      });
+
+      Matchs.find({
+        idTournoi: idT,
+        termine: true,
+        "j2.name": nj
+      }).forEach(function(match){
+        scorePos += match.j2.score;
+      });
+
+      return scorePos;
+    },
+    scoreNegatif: function (nj, idT) {
+      let scoreNeg = 0;
+
+      Matchs.find({
+        idTournoi: idT,
+        termine: true,
+        "j1.name": nj
+      }).forEach(function(match){
+        scoreNeg += match.j2.score;
+      });
+
+      Matchs.find({
+        idTournoi: idT,
+        termine: true,
+        "j2.name": nj
+      }).forEach(function(match){
+        scoreNeg += match.j1.score;
+      });
+
+      return scoreNeg;
+    },
+    diffScore: function (nj, idT) {
+      let scorePos = 0;
+      let scoreNeg = 0;
+
+      Matchs.find({idTournoi: idT, termine: true, "j1.name": nj}).forEach(function(match){scorePos += match.j1.score;});
+      Matchs.find({idTournoi: idT, termine: true, "j2.name": nj}).forEach(function(match){scorePos += match.j2.score;});
+
+      Matchs.find({idTournoi: idT, termine: true, "j1.name": nj}).forEach(function(match){scoreNeg += match.j2.score;});
+      Matchs.find({idTournoi: idT, termine: true, "j2.name": nj}).forEach(function(match){scoreNeg += match.j1.score;});
+
+      return scorePos - scoreNeg;
+    },
+    totalPoints: function(nj, idT) {
+
+      let nuls = Matchs.find({idTournoi: idT, termine: true, $or: [ /* TODO Comment faire sans $where ???*/ {$and: [{"j1.name": nj}, {$where: "this.j1.score == this.j2.score"}]},{$and: [{"j2.name": nj}, {$where: "this.j2.score == this.j1.score"}]}
+                    ]}).count();
+
+      let victoires = Matchs.find({idTournoi: idT, termine: true, $or: [ /* TODO Comment faire sans $where ???*/ {$and: [{"j1.name": nj}, {$where: "this.j1.score > this.j2.score"}]}, {$and: [{"j2.name": nj}, {$where: "this.j2.score > this.j1.score"}]}
+                         ]}).count();
+
+      return nuls + victoires*3;
+    }
+
+/*
         //si idTournoi = idT
         //  si termine = true
         //    si j1.score = j2.score
@@ -89,5 +142,6 @@ Template.test.helpers({
 
         //return Matchs.find({ $or: [{"j1.name": nj},{"j2.name": nj}], termine:true, idTournoi:idT}).count();
         //return e;
-    }
+        */
+
 });

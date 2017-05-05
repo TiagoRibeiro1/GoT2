@@ -1,10 +1,10 @@
 <template name="page_suivre">
   {{> suivre}}
+  {{matchCrees}}
 </template>
 
 <template name="suivre">
   {{#if name}}
-    {{matchCrees}}
 
     <h1>{{name}}</h1>
   <!-- <p>Type de tournoi: {{typeTournoi}}</p>
@@ -53,7 +53,8 @@
     <td>{{matchGagne name tournoi}}</td>
     <td>{{matchNul name tournoi}}</td>
     <td>{{matchPerdu name tournoi}}</td>
-    <td>a</td>
-    <td></td>
-    <td></td>
+    <td>{{scorePositif name tournoi}}</td>
+    <td>{{scoreNegatif name tournoi}}</td>
+    <td>{{diffScore name tournoi}}</td>
+    <td>{{totalPoints name tournoi}}</td>
 </template>

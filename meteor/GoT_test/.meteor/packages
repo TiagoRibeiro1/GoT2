@@ -27,3 +27,5 @@ aldeed:collection2-core
 msavin:mongol
 accounts-password@1.3.5
 accounts-ui@1.1.9
+meteorhacks:aggregate
+peppelg:mongo-sum
