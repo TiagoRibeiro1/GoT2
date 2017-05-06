@@ -6,7 +6,7 @@ Template.page_suivre.helpers({
   }
 });
 
-Template.test.helpers({
+Template.classement.helpers({
     matchCount: function() {
       return Matchs.find().count();
     },
@@ -144,4 +144,13 @@ Template.test.helpers({
         //return e;
         */
 
+});
+
+Template.aJouer.helpers({
+  matchRestants: function(idT){
+    return Matchs.find({
+      idTournoi: idT,
+      termine: false
+    });
+  }
 });

@@ -38,17 +38,19 @@
         <tr>
             <td>#</td>
             <td>{{joueur}}</td>
-          {{> test name=joueur tournoi=_id}}
+          {{> classement name=joueur tournoi=_id}}
         </tr>
       {{/each}}
     </tbody>
   </table>
+  {{> aJouer tournoi=_id}}
+
   {{else}}
     {{> fieldset val_title="VOIR" val_var=true btn_txt="GO" btn_link="/suivre" fs_id="suivre"}}
   {{/if}}
 </template>
 
-<template name="test">
+<template name="classement">
     <td>{{matchJoue name tournoi}}</td>
     <td>{{matchGagne name tournoi}}</td>
     <td>{{matchNul name tournoi}}</td>
@@ -57,4 +59,15 @@
     <td>{{scoreNegatif name tournoi}}</td>
     <td>{{diffScore name tournoi}}</td>
     <td>{{totalPoints name tournoi}}</td>
+</template>
+
+<template name="aJouer">
+  <table>
+    {{#each matchRestants tournoi}}
+      <tr>
+        {{nuMatch}} : {{j1.name}} - {{j2.name}}
+            <!-- {{matchRestants tournoi}} -->
+      </tr>
+    {{/each}}
+  </table>
 </template>
