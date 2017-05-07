@@ -11,6 +11,13 @@ Template.page_gerer.helpers({
   'tournoisCrees': function(){
     let currentUser = Meteor.userId();
     return Tournois.find({admin: currentUser}, {sort: {date: -1}});
+  },
+  'matchRestants': function(idT){
+    console.log("débile");
+    return Matchs.find({
+      idTournoi: idT,
+      termine: false
+    })
   }
 });
 
@@ -32,6 +39,20 @@ Template.page_gerer.events ({
     event.preventDefault();
     let idTournoi = this._id;
     Router.go(`/gerer/${idTournoi}`);
+  },
+  // Updating match score
+  'keypress [name=scoreInputJ1]': function(event){
+    let idMatch = this._id;
+    let score = parseInt($(event.target).val());
+    Matchs.update({ _id : idMatch}, {$set: {"j1.score" : score}})
+  },
+  'keypress [name=scoreInputJ2]': function(event){
+    let idMatch = this._id;
+    let score = parseInt($(event.target).val());
+    Matchs.update({ _id : idMatch}, {$set: {"j2.score" : score}})
+  },
+  'click .glyphicon-ok': function(event){
+    let idMatch = this._id;
+    Matchs.update({ _id: idMatch}, {$set: {termine: true}})
   }
-
 });

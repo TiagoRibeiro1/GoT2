@@ -3,6 +3,20 @@
 
   {{#if name}}
     <h1>{{name}}</h1>
+
+
+    <table>
+      {{#each matchRestants _id}}
+        <tr>
+          {{j1.name}} &nbsp; <input type="number" value="{{j1.score}}" name="scoreInputJ1">
+          - &nbsp;
+          {{j2.name}} &nbsp; <input type="number" value="{{j2.score}}" name="scoreInputJ2">
+          <span class="glyphicon glyphicon-ok"></span>
+        </tr>
+      {{/each}}
+    </table>
+    <!-- <input type="numb" value="{{name}}" name="todoItem"> -->
+
   {{else}}
     {{#if nombreTournois}}
     <table class="table table-striped">
