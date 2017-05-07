@@ -1,24 +1,29 @@
 <template name="page_gerer">
-  <h1>Gérer</h1>
 
   {{#if name}}
     <h1>{{name}}</h1>
+    <!-- {{#if nombreMatchsRestants}}
+      <h2>Il n'y a plus de match à jouer</h2>
+    {{else}} -->
 
+      <h3>Matchs à compléter</h3>
 
-    <table>
-      {{#each matchRestants _id}}
+      <table>
+        {{#each matchRestants _id}}
         <tr>
           {{j1.name}} &nbsp; <input type="number" value="{{j1.score}}" name="scoreInputJ1">
           - &nbsp;
-          {{j2.name}} &nbsp; <input type="number" value="{{j2.score}}" name="scoreInputJ2">
+          <input type="number" value="{{j2.score}}" name="scoreInputJ2"> &nbsp; {{j2.name}}
+          &nbsp;
           <span class="glyphicon glyphicon-ok"></span>
         </tr>
-      {{/each}}
-    </table>
-    <!-- <input type="numb" value="{{name}}" name="todoItem"> -->
+        {{/each}}
+      </table>
+    <!-- {{/if}} -->
 
   {{else}}
     {{#if nombreTournois}}
+    <h2>Tournois</h2>
     <table class="table table-striped">
       <thead>
         <tr>

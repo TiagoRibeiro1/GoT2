@@ -178,7 +178,11 @@ body{
 }
 
 .glyphicon-remove {
-  color:red;
+  color: red;
+}
+
+.glyphicon-ok {
+  color: limeGreen;
 }
 
 #log{
