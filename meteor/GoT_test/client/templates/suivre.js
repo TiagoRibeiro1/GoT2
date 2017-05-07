@@ -154,3 +154,12 @@ Template.aJouer.helpers({
     });
   }
 });
+
+Template.termine.helpers({
+  matchTermines: function(idT){
+    return Matchs.find({
+      idTournoi: idT,
+      termine: true
+    })
+  }
+});

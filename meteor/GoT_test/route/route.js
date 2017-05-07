@@ -52,8 +52,16 @@ Router.route('/login', function () {
   this.render('login');
 });
 
+// Make stupidproof to avoid invalid url
 Router.route('/suivre/:_id', {
     template: 'page_suivre',
+    data: function(){
+        return Tournois.findOne({ _id: this.params._id });
+    }
+});
+
+Router.route('/gerer/:_id', {
+    template: 'page_gerer',
     data: function(){
         return Tournois.findOne({ _id: this.params._id });
     }
