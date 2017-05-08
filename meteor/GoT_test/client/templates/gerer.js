@@ -48,17 +48,30 @@ Template.page_gerer.events ({
     Router.go(`/gerer/${idTournoi}`);
   },
   // Updating match score
-  'keydown [name=scoreInputJ1]': function(event){
-    if (event.which == 13 || event.which == 27 || event.which == 9) {
-      let idMatch = this._id;
-      let score = parseInt($(event.target).val());
-      Matchs.update({ _id : idMatch}, {$set: {"j1.score" : score}})
+  // To check!!
+  'keydown [name=scoreInputJ1], blur [name=scoreInputJ1]': function(event){
+    let idMatch = this._id;
+    let score = parseInt($(event.target).val());
+    if (isNaN(score)) {
+      // alert("FORMAT NON VALIDE");
+      console.log(event);
+      $(event.currentTarget).css("background-color", "salmon")
+    } else {
+      $(event.currentTarget).css("background-color", "")
+      if (event.type == 'focusout'){
+        Matchs.update({ _id : idMatch}, {$set: {"j1.score" : score}})
+      } else if (event.which == 13 || event.which == 27 || event.which == 9) {
+        Matchs.update({ _id : idMatch}, {$set: {"j1.score" : score}})
+      }
+
     }
   },
-  'keydown [name=scoreInputJ2]': function(event){
-    if (event.which == 13 || event.which == 27 || event.which == 9) {
-      let idMatch = this._id;
-      let score = parseInt($(event.target).val());
+  'keydown [name=scoreInputJ2], blur [name=scoreInputJ2]': function(event){
+    let idMatch = this._id;
+    let score = parseInt($(event.target).val());
+    if (event.type == 'focusout'){
+      Matchs.update({ _id : idMatch}, {$set: {"j2.score" : score}})
+    } else if (event.which == 13 || event.which == 27 || event.which == 9) {
       Matchs.update({ _id : idMatch}, {$set: {"j2.score" : score}})
     }
   },
