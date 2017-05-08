@@ -1,9 +1,8 @@
-Template.page_suivre.helpers({
-  'matchCrees': function(){
-    console.log(Matchs.find({}).forEach(function(obj) {
-      return obj._id;
-    }));
-  }
+Template.suivre.events({
+    'click .btn': function(event) {
+        let url = $('#lienSuivre').val();
+        Router.go(`/suivre/${url}`);
+    }
 });
 
 Template.classement.helpers({
@@ -160,6 +159,6 @@ Template.termine.helpers({
     return Matchs.find({
       idTournoi: idT,
       termine: true
-    })
-  }
+    }, {limit: 5, sort:{dateModif: -1}})
+ }
 });

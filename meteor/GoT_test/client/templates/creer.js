@@ -27,6 +27,8 @@ AutoForm.hooks({
                 termine: false,
                 tour: t+1,
                 nuMatch: m,
+                timeStamp: new Date(),
+                date: 0
               })
               m++;
             }

@@ -208,6 +208,26 @@ body{
     background-color: #5cb85c;
     color: #fff;
 }
+
 #p1{
   text-align: center;
+}
+
+.matchAjouer {
+  text-align: center;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+}
+
+.inputScore {
+  width: 30px;
+}
+
+td, th {
+  text-align: center;
+}
+
+.score {
+  font-weight: bold;
 }

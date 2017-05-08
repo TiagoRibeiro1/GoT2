@@ -1,53 +1,52 @@
 <template name="page_suivre">
   {{> suivre}}
-  {{matchCrees}}
 </template>
 
 <template name="suivre">
   {{#if name}}
 
-    <h1>{{name}}</h1>
-    <!-- <p>Type de tournoi: {{typeTournoi}}</p>
-    {{#if optionElDir}}
-    <p>Option d'élimination directe: {{optionElDir}}</p>
-    {{/if}}
-    {{#if optionSerie}}
-    <p>Option de série: {{optionSerie}}</p>
-    {{/if}}
-    Joueurs: <pre class="joueurs">{{joueurs}}</pre> -->
+  <h1>{{name}}</h1>
+  <!-- <p>Type de tournoi: {{typeTournoi}}</p>
+  {{#if optionElDir}}
+  <p>Option d'élimination directe: {{optionElDir}}</p>
+  {{/if}}
+  {{#if optionSerie}}
+  <p>Option de série: {{optionSerie}}</p>
+  {{/if}}
+  Joueurs: <pre class="joueurs">{{joueurs}}</pre> -->
 
-    <h3>Classement</h3>
-    <table class="table table-striped table-responsive">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Joueur</th>
-          <th>J</th>
-          <th>V</th>
-          <th>N</th>
-          <th>D</th>
-          <th>+</th>
-          <th>-</th>
-          <th>+/-</th>
-          <th>PTS</th>
-        </tr>
-      </thead>
+  <h3>Classement</h3>
+  <table class="table table-striped table-responsive">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Joueur</th>
+        <th>J</th>
+        <th>V</th>
+        <th>N</th>
+        <th>D</th>
+        <th>+</th>
+        <th>-</th>
+        <th>+/-</th>
+        <th>PTS</th>
+      </tr>
+    </thead>
 
-      <tbody>
-        {{#each joueur in joueurs}}
-          <tr>
-              <td>#</td>
-              <td>{{joueur}}</td>
-            {{> classement name=joueur tournoi=_id}}
-          </tr>
-        {{/each}}
-      </tbody>
-    </table>
-    {{> aJouer tournoi=_id}}
-    {{> termine tournoi=_id}}
+    <tbody>
+      {{#each joueur in joueurs}}
+      <tr>
+        <td>#</td>
+        <td>{{joueur}}</td>
+        {{> classement name=joueur tournoi=_id}}
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  {{> termine tournoi=_id}}
+  {{> aJouer tournoi=_id}}
 
   {{else}}
-    {{> fieldset val_title="VOIR" val_var=true btn_txt="GO" btn_link="/suivre" fs_id="suivre"}}
+  {{> fieldset val_title="VOIR" val_var=true btn_txt="GO" btn_link="/suivre" fs_id="lienSuivre"}}
   {{/if}}
 </template>
 
@@ -64,23 +63,39 @@
 
 <template name="aJouer">
   <h2>A jouer</h2>
-  <table>
+  <div class="row">
     {{#each matchRestants tournoi}}
-      <tr>
-        {{nuMatch}} : {{j1.name}} - {{j2.name}}
-            <!-- {{matchRestants tournoi}} -->
-      </tr>
+    <div class="col-xs-6 col-md-4 col-lg-2 matchAjouer">
+      <div class="row">
+        <span class="col-xs-5">
+          {{j1.name}}
+        </span>
+        <span class="col-xs-2">
+          -
+        </span>
+        <span class="col-xs-5">
+          {{j2.name}}
+        </span>
+      </div>
+    </div>
     {{/each}}
-  </table>
+  </div>
 </template>
 
 <template name="termine">
-  <h2>Résultats</h2>
-  <table>
-    {{#each matchTermines tournoi}}
-      <tr>
-        {{nuMatch}} : {{j1.name}}&nbsp;{{j1.score}} - {{j2.score}}&nbsp;{{j2.name}}
-      </tr>
-    {{/each}}
+  <h2>Derniers résultats</h2>
+  <table class="table table-striped table-responsive">
+    <tbody>
+      {{#each matchTermines tournoi}}
+        <tr>
+          <td>{{j1.name}}</td>
+          <td class="score">{{j1.score}}</td>
+          <td>-</td>
+          <td class="score">{{j2.score}}</td>
+          <td>{{j2.name}}</td>
+          <td>{{dateModif}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
   </table>
 </template>

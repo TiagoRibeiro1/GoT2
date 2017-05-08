@@ -64,6 +64,7 @@ Template.page_gerer.events ({
   },
   'click .glyphicon-ok': function(event){
     let idMatch = this._id;
-    Matchs.update({ _id: idMatch}, {$set: {termine: true}})
+    let date = `${new Date().getDate()}/${new Date().getMonth()+1} ${new Date().getHours()}:${new Date().getMinutes()}`
+    Matchs.update({ _id: idMatch}, {$set: {termine: true, dateModif: date}})
   }
 });
