@@ -47,19 +47,22 @@ Template.page_gerer.events ({
     let idTournoi = this._id;
     Router.go(`/gerer/${idTournoi}`);
   },
-  // Updating match score
-  // To check!!
-  'keydown [name=scoreInputJ1], blur [name=scoreInputJ1]': function(event){console.log(event.target.classList);
+  'keydown [name=scoreInputJ1], blur [name=scoreInputJ1]': function(event){
     let idMatch = this._id;
     let score = parseInt($(event.target).val());
     if (isNaN(score) || score === '') {
       $(event.currentTarget).css("background-color", "lightSalmon");
-      $(`span#${event.target.classList[1]}`).removeClass("glyphicon-ok").addClass("glyphicon-alert");
+      $(`span#${event.target.classList[2]}`).removeClass("glyphicon-ok").addClass("glyphicon-alert");
     } else {
-      $(`span#${event.target.classList[1]}`).removeClass("glyphicon-alert").addClass("glyphicon-ok");
-      $(event.currentTarget).css("background-color", "");
-      if (event.type == 'focusout' || (event.which == 13 || event.which == 27 || event.which == 9)){
-        Matchs.update({ _id : idMatch}, {$set: {"j1.score" : score}});
+      if (isNaN($('[name=scoreInputJ2]').val()) || $('[name=scoreInputJ2]').val() === '') {
+        $(`[name=scoreInputJ2].${event.target.classList[2]}`).css("background-color", "lightSalmon");
+        $(event.currentTarget).css("background-color", "");
+      } else {
+        $(`span#${event.target.classList[2]}`).removeClass("glyphicon-alert").addClass("glyphicon-ok");
+        $(event.currentTarget).css("background-color", "");
+        if (event.type == 'focusout' || (event.which == 13 || event.which == 27 || event.which == 9)){
+          Matchs.update({ _id : idMatch}, {$set: {"j1.score" : score}});
+        }
       }
     }
   },
@@ -68,12 +71,17 @@ Template.page_gerer.events ({
     let score = parseInt($(event.target).val());
     if (isNaN(score) || score === '') {
       $(event.currentTarget).css("background-color", "lightSalmon");
-      $(`span#${event.target.classList[1]}`).removeClass("glyphicon-ok").addClass("glyphicon-alert");
+      $(`span#${event.target.classList[2]}`).removeClass("glyphicon-ok").addClass("glyphicon-alert");
     } else {
-      $(`span#${event.target.classList[1]}`).removeClass("glyphicon-alert").addClass("glyphicon-ok");
-      $(event.currentTarget).css("background-color", "");
-      if (event.type == 'focusout' || event.which == 13 || event.which == 27 || event.which == 9){
-        Matchs.update({ _id : idMatch}, {$set: {"j2.score" : score}});
+      if (isNaN($('[name=scoreInputJ1]').val()) || $('[name=scoreInputJ1]').val() === '') {
+        $(`[name=scoreInputJ1].${event.target.classList[2]}`).css("background-color", "lightSalmon");
+        $(event.currentTarget).css("background-color", "");
+      } else {
+        $(`span#${event.target.classList[2]}`).removeClass("glyphicon-alert").addClass("glyphicon-ok");
+        $(event.currentTarget).css("background-color", "");
+        if (event.type == 'focusout' || (event.which == 13 || event.which == 27 || event.which == 9)){
+          Matchs.update({ _id : idMatch}, {$set: {"j2.score" : score}});
+        }
       }
     }
   },
