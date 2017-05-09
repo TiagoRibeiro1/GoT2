@@ -52,32 +52,48 @@ Template.page_gerer.events ({
   'keydown [name=scoreInputJ1], blur [name=scoreInputJ1]': function(event){
     let idMatch = this._id;
     let score = parseInt($(event.target).val());
-    if (isNaN(score)) {
-      // alert("FORMAT NON VALIDE");
-      console.log(event);
-      $(event.currentTarget).css("background-color", "salmon")
+    if (isNaN(score) || score === '') {
+      $(event.currentTarget).css("background-color", "lightSalmon");
+      console.log($('#TESST'));
+      $('#TESST').removeClass("glyphicon-ok").addClass("glyphicon-alert");
     } else {
-      $(event.currentTarget).css("background-color", "")
-      if (event.type == 'focusout'){
-        Matchs.update({ _id : idMatch}, {$set: {"j1.score" : score}})
-      } else if (event.which == 13 || event.which == 27 || event.which == 9) {
-        Matchs.update({ _id : idMatch}, {$set: {"j1.score" : score}})
+      $('#TESST').removeClass("glyphicon-alert").addClass("glyphicon-ok");
+      $(event.currentTarget).css("background-color", "");
+      if (event.type == 'focusout' || (event.which == 13 || event.which == 27 || event.which == 9)){
+        Matchs.update({ _id : idMatch}, {$set: {"j1.score" : score}});
       }
-
     }
   },
   'keydown [name=scoreInputJ2], blur [name=scoreInputJ2]': function(event){
     let idMatch = this._id;
     let score = parseInt($(event.target).val());
-    if (event.type == 'focusout'){
-      Matchs.update({ _id : idMatch}, {$set: {"j2.score" : score}})
-    } else if (event.which == 13 || event.which == 27 || event.which == 9) {
-      Matchs.update({ _id : idMatch}, {$set: {"j2.score" : score}})
+    if (isNaN(score) || score === '') {
+      $(event.currentTarget).css("background-color", "lightSalmon");
+    } else {
+      $(event.currentTarget).css("background-color", "");
+      if (event.type == 'focusout' || event.which == 13 || event.which == 27 || event.which == 9){
+        Matchs.update({ _id : idMatch}, {$set: {"j2.score" : score}});
+      }
     }
   },
-  'click .glyphicon-ok': function(event){
+  'click .validerScore': function(event){
+
+    console.log(event.target);
     let idMatch = this._id;
-    let date = `${new Date().getDate()}/${new Date().getMonth()+1} ${new Date().getHours()}:${new Date().getMinutes()}`
-    Matchs.update({ _id: idMatch}, {$set: {termine: true, dateModif: date}})
+    let score1 = $('[name=scoreInputJ1]').val();
+    let score2 = $('[name=scoreInputJ2]').val();
+
+    console.log(`1: ${score1}, 2: ${score2}`);
+
+    if (isNaN(score1) || isNaN(score2) || score1 === "" || score2 === "") {
+      if (isNaN(score1) || score1 === "") {
+        $('input[name=scoreInputJ1]').css("background-color", "red")
+      } else {
+        $('[name=scoreInputJ2]').css("background-color", "red")
+      }
+    } else {
+      let date = `${new Date().getDate()}/${new Date().getMonth()+1} ${new Date().getHours()}:${new Date().getMinutes()}`
+      Matchs.update({ _id: idMatch}, {$set: {termine: true, dateModif: date}})
+    }
   }
 });

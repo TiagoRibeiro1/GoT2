@@ -185,6 +185,10 @@ body{
   color: limeGreen;
 }
 
+.glyphicon-alert {
+  color: orange;
+}
+
 #log{
   display: block;
     padding: 6px 12px;
@@ -221,7 +225,7 @@ body{
 }
 
 .inputScore {
-  width: 30px;
+  width: 40px;
 }
 
 td, th {

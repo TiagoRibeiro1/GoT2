@@ -24,11 +24,11 @@
         {{#each matchRestants _id}}
         <tr>
           <td>{{j1.name}}</td>
-          <td><input class="inputScore" type="number" value="{{j1.score}}" name="scoreInputJ1"></td>
+          <td><input class="inputScore" type="number" min="0" value="{{j1.score}}" name="scoreInputJ1"></td>
           <td> - </td>
-          <td><input class="inputScore" type="number" value="{{j2.score}}" name="scoreInputJ2"></td>
+          <td><input class="inputScore" type="number" min="0" value="{{j2.score}}" name="scoreInputJ2"></td>
           <td>{{j2.name}}</td>
-          <td><span class="glyphicon glyphicon-ok"></span></td>
+          <td><span id="TESST" class="glyphicon glyphicon-ok validerScore"></span></td>
         </tr>
         <!-- <div class="col-xs-6 col-md-4 col-lg-2 matchAcompleter">
 
