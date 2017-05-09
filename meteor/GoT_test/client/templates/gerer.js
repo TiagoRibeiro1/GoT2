@@ -49,15 +49,14 @@ Template.page_gerer.events ({
   },
   // Updating match score
   // To check!!
-  'keydown [name=scoreInputJ1], blur [name=scoreInputJ1]': function(event){
+  'keydown [name=scoreInputJ1], blur [name=scoreInputJ1]': function(event){console.log(event.target.classList);
     let idMatch = this._id;
     let score = parseInt($(event.target).val());
     if (isNaN(score) || score === '') {
       $(event.currentTarget).css("background-color", "lightSalmon");
-      console.log($('#TESST'));
-      $('#TESST').removeClass("glyphicon-ok").addClass("glyphicon-alert");
+      $(`span#${event.target.classList[1]}`).removeClass("glyphicon-ok").addClass("glyphicon-alert");
     } else {
-      $('#TESST').removeClass("glyphicon-alert").addClass("glyphicon-ok");
+      $(`span#${event.target.classList[1]}`).removeClass("glyphicon-alert").addClass("glyphicon-ok");
       $(event.currentTarget).css("background-color", "");
       if (event.type == 'focusout' || (event.which == 13 || event.which == 27 || event.which == 9)){
         Matchs.update({ _id : idMatch}, {$set: {"j1.score" : score}});
@@ -69,31 +68,18 @@ Template.page_gerer.events ({
     let score = parseInt($(event.target).val());
     if (isNaN(score) || score === '') {
       $(event.currentTarget).css("background-color", "lightSalmon");
+      $(`span#${event.target.classList[1]}`).removeClass("glyphicon-ok").addClass("glyphicon-alert");
     } else {
+      $(`span#${event.target.classList[1]}`).removeClass("glyphicon-alert").addClass("glyphicon-ok");
       $(event.currentTarget).css("background-color", "");
       if (event.type == 'focusout' || event.which == 13 || event.which == 27 || event.which == 9){
         Matchs.update({ _id : idMatch}, {$set: {"j2.score" : score}});
       }
     }
   },
-  'click .validerScore': function(event){
-
-    console.log(event.target);
+  'click .glyphicon-ok': function(event){
     let idMatch = this._id;
-    let score1 = $('[name=scoreInputJ1]').val();
-    let score2 = $('[name=scoreInputJ2]').val();
-
-    console.log(`1: ${score1}, 2: ${score2}`);
-
-    if (isNaN(score1) || isNaN(score2) || score1 === "" || score2 === "") {
-      if (isNaN(score1) || score1 === "") {
-        $('input[name=scoreInputJ1]').css("background-color", "red")
-      } else {
-        $('[name=scoreInputJ2]').css("background-color", "red")
-      }
-    } else {
-      let date = `${new Date().getDate()}/${new Date().getMonth()+1} ${new Date().getHours()}:${new Date().getMinutes()}`
-      Matchs.update({ _id: idMatch}, {$set: {termine: true, dateModif: date}})
-    }
+    let date = `${new Date().getDate()}/${new Date().getMonth()+1} ${new Date().getHours()}:${new Date().getMinutes()}`
+    Matchs.update({ _id: idMatch}, {$set: {termine: true, dateModif: date}})
   }
 });
