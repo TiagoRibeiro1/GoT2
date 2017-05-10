@@ -16,9 +16,8 @@
   Joueurs: <pre class="joueurs">{{joueurs}}</pre> -->
 
   <h3>Classement</h3>
-  {{#each petitsJoueurs _id joueurs}}
-    <h1>{{this}}</h1>
-  {{/each}}
+
+  {{ petitsJoueurs _id joueurs }}
 
   <table class="table table-striped table-responsive">
     <thead>
@@ -39,7 +38,7 @@
     <tbody>
       {{#each joueur in joueurs}}
       <tr>
-        <td>#</td>
+        <td>{{place joueur joueurs}}</td>
         <td>{{joueur}}</td>
         {{> classement name=joueur tournoi=_id}}
       </tr>

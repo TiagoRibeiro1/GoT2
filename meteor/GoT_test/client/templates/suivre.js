@@ -109,6 +109,7 @@ Template.classement.helpers({
 });
 
 Template.suivre.helpers({
+  // TODO : launch function only when updating Matchs db
   petitsJoueurs: function(idT, joueurs) {
     function compare(a,b) {
       if (a.score > b.score)
@@ -129,7 +130,11 @@ Template.suivre.helpers({
     })
     classement.sort(compare);
     let joueursTries = Object.keys(classement).map(key => classement[key].nom);
-    return joueursTries;
+    Tournois.update({_id : idT}, {$set : { "joueurs" : joueursTries}});
+
+  },
+  place: function(j, joueurs) {
+    return joueurs.indexOf(j) + 1;
   }
 })
 
