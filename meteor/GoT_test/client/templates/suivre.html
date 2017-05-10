@@ -16,6 +16,10 @@
   Joueurs: <pre class="joueurs">{{joueurs}}</pre> -->
 
   <h3>Classement</h3>
+  {{#each petitsJoueurs _id joueurs}}
+    <h1>{{this}}</h1>
+  {{/each}}
+
   <table class="table table-striped table-responsive">
     <thead>
       <tr>

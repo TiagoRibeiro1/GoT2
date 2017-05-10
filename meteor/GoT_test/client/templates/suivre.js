@@ -108,6 +108,31 @@ Template.classement.helpers({
     }
 });
 
+Template.suivre.helpers({
+  petitsJoueurs: function(idT, joueurs) {
+    function compare(a,b) {
+      if (a.score > b.score)
+        return -1;
+      if (a.score < b.score)
+        return 1;
+      return 0;
+    }
+    let classement = [];
+    joueurs.forEach(function(j) {
+      let nuls = Matchs.find({idTournoi: idT, termine: true, $or: [ /* TODO Comment faire sans $where ???*/ {$and: [{"j1.name": j}, {$where: "this.j1.score == this.j2.score"}]},{$and: [{"j2.name": j}, {$where: "this.j2.score == this.j1.score"}]}]}).count();
+      let victoires = Matchs.find({idTournoi: idT, termine: true, $or: [ /* TODO Comment faire sans $where ???*/ {$and: [{"j1.name": j}, {$where: "this.j1.score > this.j2.score"}]}, {$and: [{"j2.name": j}, {$where: "this.j2.score > this.j1.score"}]}]}).count();
+      let pts = nuls + victoires * 3;
+      let joueur = {};
+      joueur.nom = j;
+      joueur.score = pts;
+      classement.push(joueur)
+    })
+    classement.sort(compare);
+    let joueursTries = Object.keys(classement).map(key => classement[key].nom);
+    return joueursTries;
+  }
+})
+
 Template.aJouer.helpers({
   matchRestants: function(idT){
     return Matchs.find({
