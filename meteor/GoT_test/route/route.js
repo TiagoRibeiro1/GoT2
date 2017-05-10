@@ -64,5 +64,22 @@ Router.route('/gerer/:_id', {
     template: 'page_gerer',
     data: function(){
         return Tournois.findOne({ _id: this.params._id });
+    },
+    onBeforeAction: function() {
+      let adminTournoi;
+      Tournois.find({_id : this.params._id}).forEach(function(t){
+        adminTournoi = t.admin;
+      })
+      let currentUser = Meteor.userId();
+      if (currentUser) {
+        if (currentUser == adminTournoi) {
+          this.next();
+        } else {
+          alert("Tu n'es pas l'administrateur...Imposteur");
+          Router.go(`/suivre/${this.params._id}`);
+        }
+      } else {
+        this.render("login");
+      }
     }
 });

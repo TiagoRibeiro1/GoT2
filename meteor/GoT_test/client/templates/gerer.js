@@ -87,7 +87,37 @@ Template.page_gerer.events ({
   },
   'click .glyphicon-ok': function(event){
     let idMatch = this._id;
+    let idT = this.idTournoi;
+    let joueurs;
+    Tournois.find({_id : idT}).forEach(function(t){
+      joueurs = t.joueurs;
+    })
+    sort = function(idT, joueurs) {
+      function compare(a,b) {
+        if (a.score > b.score)
+          return -1;
+        if (a.score < b.score)
+          return 1;
+        return 0;
+      }
+      let classement = [];
+      joueurs.forEach(function(j) {
+        let nuls = Matchs.find({idTournoi: idT, termine: true, $or: [ /* TODO Comment faire sans $where ???*/ {$and: [{"j1.name": j}, {$where: "this.j1.score == this.j2.score"}]},{$and: [{"j2.name": j}, {$where: "this.j2.score == this.j1.score"}]}]}).count();
+        let victoires = Matchs.find({idTournoi: idT, termine: true, $or: [ /* TODO Comment faire sans $where ???*/ {$and: [{"j1.name": j}, {$where: "this.j1.score > this.j2.score"}]}, {$and: [{"j2.name": j}, {$where: "this.j2.score > this.j1.score"}]}]}).count();
+        let pts = nuls + victoires * 3;
+        let joueur = {};
+        joueur.nom = j;
+        joueur.score = pts;
+        classement.push(joueur)
+      })
+      classement.sort(compare);
+      let joueursTries = Object.keys(classement).map(key => classement[key].nom);
+      Tournois.update({_id : idT}, {$set : { "joueurs" : joueursTries}});
+
     let date = `${new Date().getDate()}/${new Date().getMonth()+1} ${new Date().getHours()}:${new Date().getMinutes()}`
     Matchs.update({ _id: idMatch}, {$set: {termine: true, dateModif: date}})
+      console.log("c0est oui");
+    }
+    sort(idT, joueurs);
   }
 });
