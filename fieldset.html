@@ -1,0 +1,14 @@
+<template name="fieldset">
+    <form action="" class="{{fs_id}} btn_submit">
+      <fieldset class="fieldset">
+        <!-- Appelle la valeur "val_title" -->
+        <legend id="voir">{{val_title}}</legend>
+        {{#if val_var}}
+             <input id={{fs_id}} class="{{fs_id}} {{class}}" type="text" placeholder="Donne un nom">
+        {{/if}}
+        <a href="{{btn_link}}">
+          <input type="submit" class="btn btn-success" value="{{btn_txt}}">
+        </a>
+      </fieldset>
+    </form>
+</template>
