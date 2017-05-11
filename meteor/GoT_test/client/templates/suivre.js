@@ -1,8 +1,12 @@
 Template.suivre.events({
-    'click .btn': function(event) {
-        let url = $('#lienSuivre').val();
-        Router.go(`/suivre/${url}`);
+  'click #boutonSuivre  ': function(event) {
+    let url = $('#inputSuivre').val();
+    if (Tournois.findOne({_id : url})) {
+      Router.go(`/suivre/${url}`);
+    } else {
+      alert("Pas de tournoi avec cet id"); // TODO message d'erreur sur la page plutôt qu'alerte
     }
+  }
 });
 
 Template.classement.helpers({
@@ -128,6 +132,6 @@ Template.termine.helpers({
     return Matchs.find({
       idTournoi: idT,
       termine: true
-    }, {limit: 5, sort:{dateModif: -1}})
+    }, {limit: 5, sort:{timeStamp: -1}})
  }
 });

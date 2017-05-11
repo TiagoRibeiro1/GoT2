@@ -24,7 +24,13 @@ Template.page_gerer.helpers({
     return Matchs.find({
       idTournoi: idT,
       termine: false
-    })
+    });
+  },
+  'nbrMatchRestants': function(idT){
+    return Matchs.find({
+      idTournoi: idT,
+      termine: false
+    }).count();
   }
 });
 
@@ -84,15 +90,17 @@ Template.page_gerer.events ({
         }
       }
     }
-  },
+  }, // Validation du score du match
   'click .glyphicon-ok': function(event){
-    let idMatch = this._id;
-    let idT = this.idTournoi;
-    let joueurs;
+    let idMatch = this._id; // Retrieve match id
+    let idT = this.idTournoi; // Retrieve tournament id
+    let joueurs; // Create an array and assign the players in it
     Tournois.find({_id : idT}).forEach(function(t){
       joueurs = t.joueurs;
-    })
+    });
+    // This function sorts the players according to their points
     sort = function(idT, joueurs) {
+      // Define the function to compare scores
       function compare(a,b) {
         if (a.score > b.score)
           return -1;
@@ -100,24 +108,29 @@ Template.page_gerer.events ({
           return 1;
         return 0;
       }
-      let classement = [];
+      let classement = []; // This array will contain player objects with name and score
       joueurs.forEach(function(j) {
         let nuls = Matchs.find({idTournoi: idT, termine: true, $or: [ /* TODO Comment faire sans $where ???*/ {$and: [{"j1.name": j}, {$where: "this.j1.score == this.j2.score"}]},{$and: [{"j2.name": j}, {$where: "this.j2.score == this.j1.score"}]}]}).count();
         let victoires = Matchs.find({idTournoi: idT, termine: true, $or: [ /* TODO Comment faire sans $where ???*/ {$and: [{"j1.name": j}, {$where: "this.j1.score > this.j2.score"}]}, {$and: [{"j2.name": j}, {$where: "this.j2.score > this.j1.score"}]}]}).count();
         let pts = nuls + victoires * 3;
         let joueur = {};
-        joueur.nom = j;
-        joueur.score = pts;
-        classement.push(joueur)
-      })
-      classement.sort(compare);
-      let joueursTries = Object.keys(classement).map(key => classement[key].nom);
-      Tournois.update({_id : idT}, {$set : { "joueurs" : joueursTries}});
+        joueur.nom = j; // add name to object
+        joueur.score = pts; // add score to object
+        classement.push(joueur); // add player to array
+      });
+      classement.sort(compare); // Sort the array by score
+      let joueursTries = Object.keys(classement).map(key => classement[key].nom); // Retrieve only the names of player sorted
+      Tournois.update({_id : idT}, {$set : { "joueurs" : joueursTries}}); // Change the array of player to have them in order
+    };
+    sort(idT, joueurs); // Sort the players by score
 
-    let date = `${new Date().getDate()}/${new Date().getMonth()+1} ${new Date().getHours()}:${new Date().getMinutes()}`
-    Matchs.update({ _id: idMatch}, {$set: {termine: true, dateModif: date}})
-      console.log("c0est oui");
+    let now = new Date(); // Create a date
+    let date; // Create a custom date
+    if (now.getMinutes() < 10) { // if single minute --> add a 0 before. ex. 9 -> 09
+      date = `${now.getDate()}/${now.getMonth()+1} ${now.getHours()}:0${now.getMinutes()}`;
+    } else {
+      date = `${now.getDate()}/${now.getMonth()+1} ${now.getHours()}:${now.getMinutes()}`;
     }
-    sort(idT, joueurs);
+    Matchs.update({ _id: idMatch}, {$set: {termine: true, dateModif: date, timeStamp: now}}); //set the match as ended, add customDate & timeStamp
   }
 });
