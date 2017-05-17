@@ -49,11 +49,11 @@ Template.page_gerer.events ({
   'keydown [name=scoreInputJ1], blur [name=scoreInputJ1]': function(event){
     let idMatch = this._id;
     let score = parseInt($(event.target).val());
-    if (isNaN(score) || score === '') {
+    if (isNaN(score) || score === '' || score < 0) {
       $(event.currentTarget).css("background-color", "lightSalmon");
       $(`span#${event.target.classList[2]}`).removeClass("glyphicon-ok").addClass("glyphicon-alert");
     } else {
-      if (isNaN($('[name=scoreInputJ2]').val()) || $('[name=scoreInputJ2]').val() === '') {
+      if (isNaN($('[name=scoreInputJ2]').val()) || $('[name=scoreInputJ2]').val() === '' || $('[name=scoreInputJ2]').val() < 0) {
         $(`[name=scoreInputJ2].${event.target.classList[2]}`).css("background-color", "lightSalmon");
         $(event.currentTarget).css("background-color", "");
       } else {
@@ -68,11 +68,11 @@ Template.page_gerer.events ({
   'keydown [name=scoreInputJ2], blur [name=scoreInputJ2]': function(event){
     let idMatch = this._id;
     let score = parseInt($(event.target).val());
-    if (isNaN(score) || score === '') {
+    if (isNaN(score) || score === '' || score < 0) {
       $(event.currentTarget).css("background-color", "lightSalmon");
       $(`span#${event.target.classList[2]}`).removeClass("glyphicon-ok").addClass("glyphicon-alert");
     } else {
-      if (isNaN($('[name=scoreInputJ1]').val()) || $('[name=scoreInputJ1]').val() === '') {
+      if (isNaN($('[name=scoreInputJ1]').val()) || $('[name=scoreInputJ1]').val() === '' || $('[name=scoreInputJ1]').val() < 0) {
         $(`[name=scoreInputJ1].${event.target.classList[2]}`).css("background-color", "lightSalmon");
         $(event.currentTarget).css("background-color", "");
       } else {
@@ -95,21 +95,21 @@ Template.page_gerer.events ({
     sort = function(idT, joueurs) {
       // Define the function to compare scores
       function compare(a,b) {
-        // if (a.pts == b.pts) {
-        //   if (a.difBut > b.difBut) {
-        //     return -1;
-        //   } else if (a.difBut < b.difBut) {
-        //     return 1;
-        //   } else {
-        //     return 0;
-        //   }
-        // } else {
+        if (a.pts == b.pts) {
+          if (a.difBut > b.difBut) {
+            return -1;
+          } else if (a.difBut < b.difBut) {
+            return 1;
+          } else {
+            return 0;
+          }
+        } else {
         if (a.pts > b.pts)
           return -1;
         if (a.pts < b.pts)
           return 1;
         return 0;
-        //}
+        }
       }
       let classement = []; // This array will contain player objects with name and score
       joueurs.forEach(function(j) {
@@ -119,21 +119,17 @@ Template.page_gerer.events ({
         let difBut = 0;
         Matchs.find({idTournoi: idT, termine: true, "j1.name": j}).forEach(function(match){difBut += match.j1.score;});
         Matchs.find({idTournoi: idT, termine: true, "j2.name": j}).forEach(function(match){difBut += match.j2.score;});
-        //console.log(`${j}: en positif ${difBut}`);
         Matchs.find({idTournoi: idT, termine: true, "j1.name": j}).forEach(function(match){difBut -= match.j2.score;});
         Matchs.find({idTournoi: idT, termine: true, "j2.name": j}).forEach(function(match){difBut -= match.j1.score;});
-        //console.log(`${j}: au final ${difBut}`);
 
         let joueur = {};
         joueur.nom = j; // add name to object
         joueur.pts = pts; // add score to object
-        // joueur.difBut = difBut;
+        joueur.difBut = difBut;
         classement.push(joueur); // add player to array
       });
-      console.log(classement);
       classement.sort(compare); // Sort the array by score
-      let joueursTries = Object.keys(classement).map(key => classement[key].nom);
-      console.log(joueursTries); // Retrieve only the names of player sorted
+      let joueursTries = Object.keys(classement).map(key => classement[key].nom); // Retrieve only the names of player sorted
       Tournois.update({_id : idT}, {$set : { "joueurs" : joueursTries}}); // Change the array of player to have them in order
     };
 
