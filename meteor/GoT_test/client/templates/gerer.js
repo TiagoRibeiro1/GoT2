@@ -95,27 +95,47 @@ Template.page_gerer.events ({
     sort = function(idT, joueurs) {
       // Define the function to compare scores
       function compare(a,b) {
-        if (a.score > b.score)
+        // if (a.pts == b.pts) {
+        //   if (a.difBut > b.difBut) {
+        //     return -1;
+        //   } else if (a.difBut < b.difBut) {
+        //     return 1;
+        //   } else {
+        //     return 0;
+        //   }
+        // } else {
+        if (a.pts > b.pts)
           return -1;
-        if (a.score < b.score)
+        if (a.pts < b.pts)
           return 1;
         return 0;
+        //}
       }
       let classement = []; // This array will contain player objects with name and score
       joueurs.forEach(function(j) {
         let nuls = Matchs.find({idTournoi: idT, termine: true, $or: [ /* TODO Comment faire sans $where ???*/ {$and: [{"j1.name": j}, {$where: "this.j1.score == this.j2.score"}]},{$and: [{"j2.name": j}, {$where: "this.j2.score == this.j1.score"}]}]}).count();
         let victoires = Matchs.find({idTournoi: idT, termine: true, $or: [ /* TODO Comment faire sans $where ???*/ {$and: [{"j1.name": j}, {$where: "this.j1.score > this.j2.score"}]}, {$and: [{"j2.name": j}, {$where: "this.j2.score > this.j1.score"}]}]}).count();
         let pts = nuls + victoires * 3;
+        let difBut = 0;
+        Matchs.find({idTournoi: idT, termine: true, "j1.name": j}).forEach(function(match){difBut += match.j1.score;});
+        Matchs.find({idTournoi: idT, termine: true, "j2.name": j}).forEach(function(match){difBut += match.j2.score;});
+        //console.log(`${j}: en positif ${difBut}`);
+        Matchs.find({idTournoi: idT, termine: true, "j1.name": j}).forEach(function(match){difBut -= match.j2.score;});
+        Matchs.find({idTournoi: idT, termine: true, "j2.name": j}).forEach(function(match){difBut -= match.j1.score;});
+        //console.log(`${j}: au final ${difBut}`);
+
         let joueur = {};
         joueur.nom = j; // add name to object
-        joueur.score = pts; // add score to object
+        joueur.pts = pts; // add score to object
+        // joueur.difBut = difBut;
         classement.push(joueur); // add player to array
       });
+      console.log(classement);
       classement.sort(compare); // Sort the array by score
-      let joueursTries = Object.keys(classement).map(key => classement[key].nom); // Retrieve only the names of player sorted
+      let joueursTries = Object.keys(classement).map(key => classement[key].nom);
+      console.log(joueursTries); // Retrieve only the names of player sorted
       Tournois.update({_id : idT}, {$set : { "joueurs" : joueursTries}}); // Change the array of player to have them in order
     };
-    sort(idT, joueurs); // Sort the players by score
 
     let now = new Date(); // Create a date
     let date; // Create a custom date
@@ -124,6 +144,9 @@ Template.page_gerer.events ({
     } else {
       date = `${now.getDate()}/${now.getMonth()+1} ${now.getHours()}:${now.getMinutes()}`;
     }
+
     Matchs.update({ _id: idMatch}, {$set: {termine: true, dateModif: date, timeStamp: now}}); //set the match as ended, add customDate & timeStamp
+
+    sort(idT, joueurs); // Sort the players by score
   }
 });
