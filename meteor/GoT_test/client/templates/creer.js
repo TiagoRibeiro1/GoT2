@@ -10,11 +10,12 @@ AutoForm.hooks({
         let m = 1; //numéro de match
         // Avec t = le nombre de match contre chaque équipe
         for (let t = 0; t < tournoi.optionChmpt; t++){
+          let tour = [];
           // i = Joueur 1
           for (let i = 0; i < tournoi.joueurs.length-1; i++) {
             // j = Joueur 2
             for (let j = i+1; j <= tournoi.joueurs.length-1; j++) {
-              Matchs.insert({
+              tour.push({
                 idTournoi: idTournoi,
                 j1: {
                   name: tournoi.joueurs[i],
@@ -33,6 +34,19 @@ AutoForm.hooks({
               m++;
             }
           }
+          shuffleArray = function(array) {
+            for (var i = array.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+            return array;
+          }
+          shuffleArray(tour);
+          tour.forEach(function(t){
+            Matchs.insert(t);
+          })
         }
 
       } else if (tournoi.typeTournoi == "ELD") {
