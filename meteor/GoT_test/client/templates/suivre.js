@@ -10,12 +10,8 @@ Template.suivre.events({
 });
 
 Template.classement.helpers({
-    matchCount: function() {
-      return Matchs.find().count();
-    },
     matchJoue: function(nj, idT) {
-        return Matchs.find({ $or: [{"j1.name": nj},{"j2.name": nj}], termine: true, idTournoi: idT}).count();
-        //return e;
+      return Matchs.find({ $or: [{"j1.name": nj},{"j2.name": nj}], termine: true, idTournoi: idT}).count();
     },
     matchPerdu: function(nj, idT) {
       return Matchs.find({
@@ -35,7 +31,6 @@ Template.classement.helpers({
           {$and: [{"j2.name": nj}, {$where: "this.j2.score == this.j1.score"}]}
         ]}).count();
     },
-
     matchGagne: function(nj, idT) {
       return Matchs.find({
         idTournoi: idT,
@@ -45,7 +40,6 @@ Template.classement.helpers({
           {$and: [{"j2.name": nj}, {$where: "this.j2.score > this.j1.score"}]}
         ]}).count();
     },
-
     scorePositif: function(nj, idT) {
       let scorePos = 0;
 
@@ -106,7 +100,7 @@ Template.classement.helpers({
                     ]}).count();
 
       let victoires = Matchs.find({idTournoi: idT, termine: true, $or: [ /* TODO Comment faire sans $where ???*/ {$and: [{"j1.name": nj}, {$where: "this.j1.score > this.j2.score"}]}, {$and: [{"j2.name": nj}, {$where: "this.j2.score > this.j1.score"}]}
-                         ]}).count();
+                    ]}).count();
 
       return nuls + victoires*3;
     }
@@ -115,7 +109,18 @@ Template.classement.helpers({
 Template.suivre.helpers({
   place: function(j, joueurs) {
     return joueurs.indexOf(j) + 1;
-  }
+  }/*, TODO checker pour voir si cette fonction joue --> peu importe la méthode
+  classementColore: function(idT){
+    let r2 = document.getElementById("rang1");
+    console.log(r2);
+    if (Matchs.find({idTournoi: idT,termine: false}).count() == 0) {
+      console.log("dans le if");
+      console.log($('#rang1'));
+      $('tr').addClass("success");
+      let r1 = document.getElementById("rang1");
+      r1.className = "success";
+    }
+  }*/
 })
 
 Template.aJouer.helpers({
@@ -124,6 +129,12 @@ Template.aJouer.helpers({
       idTournoi: idT,
       termine: false
     });
+  },
+  nbrMatchRestants: function(idT){
+    return Matchs.find({
+      idTournoi: idT,
+      termine: false
+    }).count();
   }
 });
 
@@ -133,5 +144,11 @@ Template.termine.helpers({
       idTournoi: idT,
       termine: true
     }, {limit: 5, sort:{timeStamp: -1}})
+ },
+ nbrMatchsTermines: function(idT){
+   return Matchs.find({
+     idTournoi: idT,
+     termine: true
+   }).count();
  }
 });

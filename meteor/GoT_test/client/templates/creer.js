@@ -46,7 +46,7 @@ AutoForm.hooks({
       //   name: result
       // });
       // Redirection sur la page suivre
-      Router.go(`/suivre/${idTournoi}`);
+      Router.go(`/gerer/${idTournoi}`);
     }
   }
 });

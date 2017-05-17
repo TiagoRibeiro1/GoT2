@@ -1,8 +1,8 @@
 Template.page_gerer.helpers({
-  'nombreTournois': function(){
+  'plusieursTournois': function(){
     let currentUser = Meteor.userId();
     let count = Tournois.find({admin: currentUser}, {sort: {date: -1}}).count();
-    if(count >= 1){ //A changer s'il y a un seul tournoi > arriver dessus
+    if(count >= 1){
       return true;
     } else {
       return false;
@@ -12,14 +12,6 @@ Template.page_gerer.helpers({
     let currentUser = Meteor.userId();
     return Tournois.find({admin: currentUser}, {sort: {date: -1}});
   },
-  // 'nombreMatchsRestants': function(idT) {
-  //   console.log();
-  //   if (Matchs.find({idTournoi: idT, termine: false}).count() == 0) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // },
   'matchRestants': function(idT){
     return Matchs.find({
       idTournoi: idT,
@@ -37,16 +29,17 @@ Template.page_gerer.helpers({
 Template.page_gerer.events ({
   // To delete tournoi and all related matches
   'click .suppr-tournoi': function(event){
-      event.preventDefault();
-      let idTournoi = this._id;
-      let confirmation = window.confirm("Supprimer définitivement ce tournoi et les matchs associés?");
-      if(confirmation){
-        Tournois.remove({ _id: idTournoi });
-        let match = Matchs.find({ idTournoi: idTournoi});
-        match.forEach(function(match){
-          Matchs.remove({_id: match._id});
-        });
-      }
+    event.preventDefault();
+    let idTournoi = this._id;
+    let confirmation = window.confirm("Supprimer définitivement ce tournoi et les matchs associés?");
+    if(confirmation){
+      Router.go('/gerer');
+      Tournois.remove({ _id: idTournoi });
+      let match = Matchs.find({ idTournoi: idTournoi});
+      match.forEach(function(match){
+        Matchs.remove({_id: match._id});
+      });
+    }
   },
   'click .goTournoi': function(event){
     event.preventDefault();
