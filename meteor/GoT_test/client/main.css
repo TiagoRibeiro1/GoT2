@@ -121,8 +121,15 @@ body{
 
 .legend{
   border: 10px auto 10 auto solid #333;
-}
 
+}
+.fieldset{
+  text-align: center;
+  
+}
+.voir{
+ 
+}
 .navbar-brand {
     float: center;
     height: 50px;
@@ -234,4 +241,61 @@ td, th {
 
 .score {
   font-weight: bold;
+}
+.goTournoi{
+ cursor: pointer;
+}
+#supp{
+  cursor: pointer;
+}
+
+.glyphicon.glyphicon-remove.suppr-tournoi{
+  cursor: pointer;
+}
+#ntournoi{
+  text-align: center;
+  border-bottom-style: solid;
+  border-bottom-color: #5cb85c;
+  padding-bottom: 20px;
+}
+#mcompleter{
+  text-align: center;
+  padding-bottom: 20px;
+}
+#tournois{
+  text-align: center;
+  border-bottom-style: solid;
+  border-bottom-color: #5cb85c;
+  padding-bottom: 20px;
+}
+.btn.btn-primary{
+  display: block;
+    padding: 6px 70px;
+    margin: 10px auto 0 auto;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 40px;
+    background-color: #5cb85c;
+}
+#creer{
+  text-align: center;
+  border-bottom-style: solid;
+  border-bottom-color: #5cb85c;
+  padding-bottom: 20px;
+}
+#options{
+  text-align: center;
 }
