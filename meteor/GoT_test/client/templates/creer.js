@@ -50,6 +50,58 @@ AutoForm.hooks({
         }
 
       } else if (tournoi.typeTournoi == "ELD") {
+        let m = 1; //numéro de match
+        let nbTours = Math.log(tournoi.joueurs.length)/Math.LN2;
+        console.log(nbTours);
+        for (let t = 0; t < nbTours; t++){
+          if (t == 0){
+            // i = Joueur 1
+            for (let i = 0; i < tournoi.joueurs.length-1; i+=2){
+              // j = Joueur 2
+              j = i+1;
+                Matchs.insert({
+                  idTournoi : idTournoi,
+                  j1: {
+                    name: tournoi.joueurs[i],
+                    score: 0
+                  },
+                  j2: {
+                    name: tournoi.joueurs[j],
+                    score: 0
+                  },
+                  termine: false,
+                  tour: t+1,
+                  nuMatch: m,
+                  timeStamp: new Date(),
+                  date: 0
+                })
+                m++;
+              }
+          } else {
+            let nbMatch = tournoi.joueurs.length/Math.pow(2,t+1);
+            for(mTour = 0; mTour < nbMatch; mTour++){
+              Matchs.insert({
+                idTournoi : idTournoi,
+                j1: {
+                  name: "",
+                  score: 0
+                },
+                j2: {
+                  name: "",
+                  score: 0
+                },
+                termine: false,
+                tour: t+1,
+                nuMatch: m,
+                timeStamp: new Date(),
+                date: 0,
+                label: `1/${nbMatch} finale`
+              })
+              m++;
+            }
+            console.log("Tour numéro" + t);
+          }
+        }
         console.log("Elimination directe");
 
       } else {
