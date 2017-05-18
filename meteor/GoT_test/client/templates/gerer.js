@@ -1,4 +1,14 @@
 Template.page_gerer.helpers({
+  'checkTypeTournoi': function(idT){
+    let tournoi = Tournois.find({idTournoi: idT});
+    if (tournoi.typeTournoi == "CHP") {
+      return true;
+    } else if (tournoi.typeTournoi == "ELD") {
+      return false;
+    } else if (tournoi.typeTournoi == "CHE") {
+      // prévoir ce cas
+    }
+  },
   'plusieursTournois': function(){
     let currentUser = Meteor.userId();
     let count = Tournois.find({admin: currentUser}, {sort: {date: -1}}).count();
@@ -84,7 +94,7 @@ Template.page_gerer.events ({
       }
     }
   }, // Validation du score du match
-  'click .glyphicon-ok': function(event){
+  'click .validerScoreCHP': function(event){
     let idMatch = this._id; // Retrieve match id
     let idT = this.idTournoi; // Retrieve tournament id
     let joueurs; // Create an array and assign the players in it
@@ -141,8 +151,43 @@ Template.page_gerer.events ({
       date = `${now.getDate()}/${now.getMonth()+1} ${now.getHours()}:${now.getMinutes()}`;
     }
 
-    Matchs.update({ _id: idMatch}, {$set: {termine: true, dateModif: date, timeStamp: now}}); //set the match as ended, add customDate & timeStamp
+    Matchs.update({_id: idMatch}, {$set: {termine: true, dateModif: date, timeStamp: now}}); //set the match as ended, add customDate & timeStamp
 
     sort(idT, joueurs); // Sort the players by score
+  },
+  'click .validerScoreELD': function(event){
+    let idMatch = this._id; // Retrieve match id
+    let idT = this.idTournoi; // Retrieve tournament id
+
+    //Update data on current match
+    let now = new Date(); // Create a date
+    let date; // Create a custom date
+    if (now.getMinutes() < 10) { // if single minute --> add a 0 before. ex. 9 -> 09
+      date = `${now.getDate()}/${now.getMonth()+1} ${now.getHours()}:0${now.getMinutes()}`;
+    } else {
+      date = `${now.getDate()}/${now.getMonth()+1} ${now.getHours()}:${now.getMinutes()}`;
+    }
+    //Matchs.update({ _id: idMatch}, {$set: {termine: true, dateModif: date, timeStamp: now}}); //set the match as ended, add customDate & timeStamp
+
+    //Getting winner of the match
+    let winner;
+    if(this.j1.score > this.j2.score){
+      winner = this.j1.name;
+    } else {
+      winner = this.j2.name;
+    }
+    //Updating data on next match
+    let match = this.nuMatchTour;
+    let nextMatch = [];
+    //Getting next nuMatchTour;
+    if(match[1] % 2 == 0){
+      nextMatch = [match[0]+1,match[1]/2];
+      let nxtM = Matchs.findOne({idTournoi: idT, nuMatchTour: nextMatch});
+      Matchs.update({_id: nxtM._id}, {$set: {"j2.name": winner}});
+    } else {
+      nextMatch = [match[0]+1,(match[1]+1)/2];
+      let nxtM = Matchs.findOne({idTournoi: idT, nuMatchTour: nextMatch});
+      Matchs.update({_id: nxtM._id}, {$set: {"j1.name": winner}});
+    }
   }
 });

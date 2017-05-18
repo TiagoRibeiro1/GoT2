@@ -72,6 +72,7 @@ AutoForm.hooks({
                   termine: false,
                   tour: t+1,
                   nuMatch: m,
+                  nuMatchTour: [t+1,m],
                   timeStamp: new Date(),
                   date: 0
                 })
@@ -93,13 +94,13 @@ AutoForm.hooks({
                 termine: false,
                 tour: t+1,
                 nuMatch: m,
+                nuMatchTour: [t+1,mTour+1],
                 timeStamp: new Date(),
                 date: 0,
                 label: `1/${nbMatch} finale`
               })
               m++;
             }
-            console.log("Tour numéro" + t);
           }
         }
         console.log("Elimination directe");
