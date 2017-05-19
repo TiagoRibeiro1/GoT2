@@ -1,11 +1,10 @@
 Template.page_gerer.helpers({
   'checkTypeTournoi': function(idT){
-    let tournoi = Tournois.find({idTournoi: idT});
-    if (tournoi.typeTournoi == "CHP") {
+    if (this.typeTournoi == "CHP") {
       return true;
-    } else if (tournoi.typeTournoi == "ELD") {
+    } else if (this.typeTournoi == "ELD") {
       return false;
-    } else if (tournoi.typeTournoi == "CHE") {
+    } else if (this.typeTournoi == "CHE") {
       // prévoir ce cas
     }
   },
@@ -189,5 +188,6 @@ Template.page_gerer.events ({
       let nxtM = Matchs.findOne({idTournoi: idT, nuMatchTour: nextMatch});
       Matchs.update({_id: nxtM._id}, {$set: {"j1.name": winner}});
     }
+    Matchs.update({_id: idMatch}, {$set: {termine: true, dateModif: date, timeStamp: now}});
   }
 });
