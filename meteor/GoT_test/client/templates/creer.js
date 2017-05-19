@@ -63,8 +63,7 @@ AutoForm.hooks({
           return array;
         }
         shuffleArray(nbJoueurs);
-        console.log(nbJoueurs);
-        // Making array.length a power of two for conviniency
+        // Making array.length a power of two for conveniency TODO change comment #Lucas
         for(let i = 1; i < 9; i++){
           if((Math.pow(2,i) < nbInscrits) && (nbInscrits < Math.pow(2,i+1))){
             let jManquants = Math.pow(2,i+1) - nbInscrits;
@@ -75,9 +74,6 @@ AutoForm.hooks({
             }
           }
         }
-        console.log(nbJoueurs);
-
-
 
         let m = 1; //numéro de match
         let nbTours = Math.log(nbJoueurs.length)/Math.LN2;

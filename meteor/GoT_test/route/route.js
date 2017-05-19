@@ -75,7 +75,7 @@ Router.route('/gerer/:_id', {
         if (currentUser == adminTournoi) {
           this.next();
         } else {
-          alert("Tu n'es pas l'administrateur...Imposteur");
+          // alert("Tu n'es pas l'administrateur...Imposteur");
           Router.go(`/suivre/${this.params._id}`);
         }
       } else {

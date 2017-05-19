@@ -21,10 +21,11 @@ Template.page_gerer.helpers({
     let currentUser = Meteor.userId();
     return Tournois.find({admin: currentUser}, {sort: {date: -1}});
   },
-  'matchRestants': function(idT){
+  'matchRestants': function(idT, t){
     return Matchs.find({
       idTournoi: idT,
-      termine: false
+      termine: false,
+      tour: t
     });
   },
   'nbrMatchRestants': function(idT){
@@ -32,6 +33,21 @@ Template.page_gerer.helpers({
       idTournoi: idT,
       termine: false
     }).count();
+  },
+  'nbrToursELD': function (idT) {
+    let tours =[];
+    let nbTours = Math.log(Matchs.find({idTournoi: idT}).count()+1)/Math.LN2;
+    for (var i = 1; i <= nbTours; i++) {
+      tours.push(i);
+    }
+    return tours;
+  },
+  'nbrToursCHP': function (nbT) {
+    let tours =[];
+    for (let i = 1; i <= nbT; i++) {
+      tours.push(i);
+    }
+    return tours;
   }
 });
 
