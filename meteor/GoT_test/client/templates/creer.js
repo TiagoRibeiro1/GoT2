@@ -53,26 +53,30 @@ AutoForm.hooks({
         let nbInscrits = tournoi.joueurs.length;
         let nbJoueurs = tournoi.joueurs;
 
-        // Making array.length a power of two for conviniency
-        for(let i = 1; i < 9; i++){
-          if((Math.pow(2,i) < nbInscrits) && (nbInscrits < Math.pow(2,i+1))){
-            let jManquants = Math.pow(2,i+1) - nbInscrits;
-            for(let k = 0; k < jManquants; k++){
-              nbJoueurs.push("vide");
-            }
-          }
-        }
-
         shuffleArray = function(array) {
           for (var i = array.length - 1; i > 0; i--) {
-              var j = Math.floor(Math.random() * (i + 1));
-              var temp = array[i];
-              array[i] = array[j];
-              array[j] = temp;
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
           }
           return array;
         }
         shuffleArray(nbJoueurs);
+        console.log(nbJoueurs);
+        // Making array.length a power of two for conviniency
+        for(let i = 1; i < 9; i++){
+          if((Math.pow(2,i) < nbInscrits) && (nbInscrits < Math.pow(2,i+1))){
+            let jManquants = Math.pow(2,i+1) - nbInscrits;
+            let index = 0;
+            for(let k = 0; k < jManquants; k++){
+              nbJoueurs.splice(index, 0, "exempt");
+              index+=2;
+            }
+          }
+        }
+        console.log(nbJoueurs);
+
 
 
         let m = 1; //numéro de match
@@ -84,7 +88,7 @@ AutoForm.hooks({
               // j = Joueur 2
               let j = i+1;
               let fini = false;
-              if (nbJoueurs[i] == "vide" || nbJoueurs[j] == "vide") {
+              if (nbJoueurs[i] == "exempt" || nbJoueurs[j] == "exempt") {
                 fini = true;
               }
               Matchs.insert({
@@ -132,20 +136,10 @@ AutoForm.hooks({
           }
         }
         setNextMatch = function(idT, nbT){
-          Matchs.find({ $or: [{"j1.name": "vide"},{"j2.name": "vide"}], termine: true, idTournoi: idT})
+          Matchs.find({ $or: [{"j1.name": "exempt"},{"j2.name": "exempt"}], termine: true, idTournoi: idT})
                 .forEach(function(match){
                   let nextMatch = [];
-                  if (match.j1.name == "vide" && match.j2.name == "vide") {
-                    if(match.nuMatchTour[1] % 2 == 0){
-                      nextMatch = [match.nuMatchTour[0]+1,match.nuMatchTour[1]/2];
-                      let nxtM = Matchs.findOne({idTournoi: idT, nuMatchTour: nextMatch});
-                      Matchs.update({_id: nxtM._id}, {$set: {"j2.name": "vide",termine: true}});
-                    } else {
-                      nextMatch = [match.nuMatchTour[0]+1,(match.nuMatchTour[1]+1)/2];
-                      let nxtM = Matchs.findOne({idTournoi: idT, nuMatchTour: nextMatch});
-                      Matchs.update({_id: nxtM._id}, {$set: {"j1.name": "vide",termine: true}});
-                    }
-                  } else if (match.j1.name == "vide" && match.j2.name != "") {
+                  if (match.j1.name == "exempt" && match.j2.name != "") {
                     if(match.nuMatchTour[1] % 2 == 0){
                       nextMatch = [match.nuMatchTour[0]+1,match.nuMatchTour[1]/2];
                       let nxtM = Matchs.findOne({idTournoi: idT, nuMatchTour: nextMatch});
@@ -155,23 +149,8 @@ AutoForm.hooks({
                       let nxtM = Matchs.findOne({idTournoi: idT, nuMatchTour: nextMatch});
                       Matchs.update({_id: nxtM._id}, {$set: {"j1.name": match.j2.name}});
                     }
-                  } else if (match.j2.name == "vide" && match.j1.name != "") {
-                    if(match.nuMatchTour[1] % 2 == 0){
-                      nextMatch = [match.nuMatchTour[0]+1,match.nuMatchTour[1]/2];
-                      let nxtM = Matchs.findOne({idTournoi: idT, nuMatchTour: nextMatch});
-                      Matchs.update({_id: nxtM._id}, {$set: {"j2.name": match.j1.name}});
-                    } else {
-                      nextMatch = [match.nuMatchTour[0]+1,(match.nuMatchTour[1]+1)/2];
-                      let nxtM = Matchs.findOne({idTournoi: idT, nuMatchTour: nextMatch});
-                      Matchs.update({_id: nxtM._id}, {$set: {"j1.name": match.j1.name}});
-                    }
                   }
                 });
-          // for(t = 2; t < nbT; t++){
-          //   if (Matchs.find({ $or: [{"j1.name": "vide"},{"j2.name": "vide"}], tour: t, termine: true, idTournoi: idT}).count() > 0) {
-          //     setNextMatch(idT, nbT);
-          //   }
-          // }
         }
 
         setNextMatch(idT, nbTours);

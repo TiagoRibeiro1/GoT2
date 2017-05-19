@@ -175,18 +175,22 @@ Template.page_gerer.events ({
     } else {
       winner = this.j2.name;
     }
-    //Updating data on next match
-    let match = this.nuMatchTour;
-    let nextMatch = [];
-    //Getting next nuMatchTour;
-    if(match[1] % 2 == 0){
-      nextMatch = [match[0]+1,match[1]/2];
-      let nxtM = Matchs.findOne({idTournoi: idT, nuMatchTour: nextMatch});
-      Matchs.update({_id: nxtM._id}, {$set: {"j2.name": winner}});
+    if (Matchs.find({idTournoi: idT, termine: false}).count() == 1) {
+      Matchs.update({_id: idMatch}, {$set: {termine: true, dateModif: date, timeStamp: now}});
     } else {
-      nextMatch = [match[0]+1,(match[1]+1)/2];
-      let nxtM = Matchs.findOne({idTournoi: idT, nuMatchTour: nextMatch});
-      Matchs.update({_id: nxtM._id}, {$set: {"j1.name": winner}});
+      //Updating data on next match
+      let match = this.nuMatchTour;
+      let nextMatch = [];
+      //Getting next nuMatchTour;
+      if(match[1] % 2 == 0){
+        nextMatch = [match[0]+1,match[1]/2];
+        let nxtM = Matchs.findOne({idTournoi: idT, nuMatchTour: nextMatch});
+        Matchs.update({_id: nxtM._id}, {$set: {"j2.name": winner}});
+      } else {
+        nextMatch = [match[0]+1,(match[1]+1)/2];
+        let nxtM = Matchs.findOne({idTournoi: idT, nuMatchTour: nextMatch});
+        Matchs.update({_id: nxtM._id}, {$set: {"j1.name": winner}});
+      }
     }
     Matchs.update({_id: idMatch}, {$set: {termine: true, dateModif: date, timeStamp: now}});
   }
