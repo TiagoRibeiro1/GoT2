@@ -15,14 +15,21 @@ AutoForm.hooks({
           for (let i = 0; i < tournoi.joueurs.length-1; i++) {
             // j = Joueur 2
             for (let j = i+1; j <= tournoi.joueurs.length-1; j++) {
+              let jr1 = tournoi.joueurs[i]
+              let jr2 = tournoi.joueurs[j]
+              if (t%2 == 1) {
+                let temp = jr1;
+                jr1 = jr2;
+                jr2 = temp;
+              }
               tour.push({
                 idTournoi: idT,
                 j1: {
-                  name: tournoi.joueurs[i],
+                  name: jr1,
                   score: 0
                 },
                 j2: {
-                  name: tournoi.joueurs[j],
+                  name: jr2,
                   score: 0
                 },
                 termine: false,
