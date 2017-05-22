@@ -49,8 +49,17 @@ Template.page_gerer.helpers({
     }
     return tours;
   },
-  'test': function(tour){
-    let labels = ["1/4 finale","1/2 finale","finale"];
+  'test': function(idT, tour){
+    let labels = [];
+    let nbTours = Math.log(Matchs.find({idTournoi: idT}).count()+1)/Math.LN2;
+    for(i = 0; i<nbTours ; i++){
+      if(i == 0){
+        labels.push(`Finale`);
+      } else {
+        labels.push(`1/${Math.pow(2,i)} Finale`);
+      }
+    }
+    labels = labels.reverse();
     return labels[tour-1];
   },
   'nbrToursCHP': function(nbT) {
