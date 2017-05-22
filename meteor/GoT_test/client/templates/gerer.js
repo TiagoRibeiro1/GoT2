@@ -72,44 +72,80 @@ Template.page_gerer.events ({
     Router.go(`/gerer/${idTournoi}`);
   },
   'keydown [name=scoreInputJ1], blur [name=scoreInputJ1]': function(event){
+    let tournoi = Tournois.findOne({_id : this.idTournoi});
     let idMatch = this._id;
-    let score = parseInt($(event.target).val());
-    if (isNaN(score) || score === '' || score < 0) {
+    let input2 = $(`[name=scoreInputJ2].${event.target.classList[2]}`); //select input j2
+    let score1 = parseInt($(event.target).val());
+    let score2 = input2.val();
+    let glyphicon = $(`span#${event.target.classList[2]}`); //icon of current match
+    // check if score1 is valid
+    if (isNaN(score1) || score1 === '' || score1 < 0) {
+      // if score1 is invalid, change background-color and icon type
       $(event.currentTarget).css("background-color", "lightSalmon");
-      $(`span#${event.target.classList[2]}`).removeClass("glyphicon-ok").addClass("glyphicon-alert");
+      glyphicon.removeClass("glyphicon-ok").addClass("glyphicon-alert");
     } else {
-      if (isNaN($('[name=scoreInputJ2]').val()) || $('[name=scoreInputJ2]').val() === '' || $('[name=scoreInputJ2]').val() < 0) {
-        $(`[name=scoreInputJ2].${event.target.classList[2]}`).css("background-color", "lightSalmon");
+      // check if score2 is valid
+      if (isNaN(score2) || score2 === '' || score2 < 0) {
+        // if score2 is invalid, change background-color and icon type
+        input2.css("background-color", "lightSalmon");
         $(event.currentTarget).css("background-color", "");
       } else {
-        $(`span#${event.target.classList[2]}`).removeClass("glyphicon-alert").addClass("glyphicon-ok");
-        $(event.currentTarget).css("background-color", "");
-        if (event.type == 'focusout' || (event.which == 13 || event.which == 27 || event.which == 9)){
-          Matchs.update({ _id : idMatch}, {$set: {"j1.score" : score}});
+        // check to avoid draw in direct elimination
+        if(tournoi.typeTournoi == "ELD" && score1 == score2){
+          // in case of draw, change both background-color and icon type
+          $(event.currentTarget).css("background-color", "lightSalmon");
+          input2.css("background-color", "lightSalmon");
+          glyphicon.removeClass("glyphicon-ok").addClass("glyphicon-alert");
+        } else {
+          // if scores are valid, reset background-color and update collection
+          glyphicon.removeClass("glyphicon-alert").addClass("glyphicon-ok");
+          $(event.currentTarget).css("background-color", "");
+          input2.css("background-color", "");
+          if (event.type == 'focusout' || (event.which == 13 || event.which == 27 || event.which == 9)){
+            Matchs.update({ _id : idMatch}, {$set: {"j1.score" : score1}});
+          }
         }
       }
     }
   },
   'keydown [name=scoreInputJ2], blur [name=scoreInputJ2]': function(event){
+    let tournoi = Tournois.findOne({_id : this.idTournoi});
     let idMatch = this._id;
-    let score = parseInt($(event.target).val());
-    if (isNaN(score) || score === '' || score < 0) {
+    let input1 = $(`[name=scoreInputJ1].${event.target.classList[2]}`); //select input j1
+    let score1 = input1.val();
+    let score2 = parseInt($(event.target).val());
+    let glyphicon = $(`span#${event.target.classList[2]}`); //icon of current match
+    // check if score2 is valid
+    if (isNaN(score2) || score2 === '' || score2 < 0) {
+      // if score2 is invalid, change background-color and icon type
       $(event.currentTarget).css("background-color", "lightSalmon");
-      $(`span#${event.target.classList[2]}`).removeClass("glyphicon-ok").addClass("glyphicon-alert");
+      glyphicon.removeClass("glyphicon-ok").addClass("glyphicon-alert");
     } else {
-      if (isNaN($('[name=scoreInputJ1]').val()) || $('[name=scoreInputJ1]').val() === '' || $('[name=scoreInputJ1]').val() < 0) {
-        $(`[name=scoreInputJ1].${event.target.classList[2]}`).css("background-color", "lightSalmon");
+      // check if score1 is valid
+      if (isNaN(score1) || score1 === '' || score1 < 0) {
+        // if score1 is invalid, change background-color and icon type
+        input1.css("background-color", "lightSalmon");
         $(event.currentTarget).css("background-color", "");
       } else {
-        $(`span#${event.target.classList[2]}`).removeClass("glyphicon-alert").addClass("glyphicon-ok");
-        $(event.currentTarget).css("background-color", "");
-        if (event.type == 'focusout' || (event.which == 13 || event.which == 27 || event.which == 9)){
-          Matchs.update({ _id : idMatch}, {$set: {"j2.score" : score}});
+        // check to avoid draw in direct elimination
+        if(tournoi.typeTournoi == "ELD" && score2 == score1){
+          // in case of draw, change both background-color and icon type
+          $(event.currentTarget).css("background-color", "lightSalmon");
+          input1.css("background-color", "lightSalmon");
+          glyphicon.removeClass("glyphicon-ok").addClass("glyphicon-alert");
+        } else {
+          // if scores are valid, reset background-color and update collection
+          glyphicon.removeClass("glyphicon-alert").addClass("glyphicon-ok");
+          $(event.currentTarget).css("background-color", "");
+          input1.css("background-color", "");
+          if (event.type == 'focusout' || (event.which == 13 || event.which == 27 || event.which == 9)){
+            Matchs.update({ _id : idMatch}, {$set: {"j2.score" : score2}});
+          }
         }
       }
     }
   }, // Validation du score du match
-  'click .validerScoreCHP': function(event){
+  'click .glyphicon-ok.validerScoreCHP': function(event){
     let idMatch = this._id; // Retrieve match id
     let idT = this.idTournoi; // Retrieve tournament id
     let joueurs; // Create an array and assign the players in it
@@ -170,7 +206,7 @@ Template.page_gerer.events ({
 
     sort(idT, joueurs); // Sort the players by score
   },
-  'click .validerScoreELD': function(event){
+  'click .glyphicon-ok.validerScoreELD': function(event){
     let idMatch = this._id; // Retrieve match id
     let idT = this.idTournoi; // Retrieve tournament id
 
