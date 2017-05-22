@@ -34,6 +34,13 @@ Template.page_gerer.helpers({
       termine: false
     }).count();
   },
+  'nbrMatchRestantsTour': function(idT, t){
+    return Matchs.find({
+      idTournoi: idT,
+      termine: false,
+      tour: t
+    }).count();
+  },
   'nbrToursELD': function(idT) {
     let tours =[];
     let nbTours = Math.log(Matchs.find({idTournoi: idT}).count()+1)/Math.LN2;
@@ -41,6 +48,10 @@ Template.page_gerer.helpers({
       tours.push(i);
     }
     return tours;
+  },
+  'test': function(tour){
+    let labels = ["1/4 finale","1/2 finale","finale"];
+    return labels[tour-1];
   },
   'nbrToursCHP': function(nbT) {
     let tours =[];
