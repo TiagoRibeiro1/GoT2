@@ -34,7 +34,7 @@ Template.page_gerer.helpers({
       termine: false
     }).count();
   },
-  'nbrToursELD': function (idT) {
+  'nbrToursELD': function(idT) {
     let tours =[];
     let nbTours = Math.log(Matchs.find({idTournoi: idT}).count()+1)/Math.LN2;
     for (var i = 1; i <= nbTours; i++) {
@@ -42,12 +42,20 @@ Template.page_gerer.helpers({
     }
     return tours;
   },
-  'nbrToursCHP': function (nbT) {
+  'nbrToursCHP': function(nbT) {
     let tours =[];
     for (let i = 1; i <= nbT; i++) {
       tours.push(i);
     }
     return tours;
+  },
+  'matchValide' : function(idMatch){
+    let match = Matchs.findOne({_id : idMatch});
+    if(match.j1.name == "" || match.j2.name == ""){
+      return false;
+    } else {
+      return true;
+    }
   }
 });
 
