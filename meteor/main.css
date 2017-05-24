@@ -3,7 +3,7 @@ body{
 }
 /* le footer s'agit des deux petits onglets en bas de page (disclaimer, à propos*/
 .footer{
-  position: absolute;
+  position: fixed;
   bottom: 0;
   background-color: lightgray;
   width: 100%;
@@ -46,20 +46,8 @@ body{
     display: block;
     padding: 6px 12px;
     margin: 10px auto 0 auto;
-    font-size: 14px;
-    font-weight: normal;
-    line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    background-image: none;
     border: 1px solid transparent;
     border-radius: 40px;
-    -webkit-transition-duration: 0.4s; /* Safari */
-    transition-duration: 0.4s;
 }
 
 .btn :hover {
@@ -265,4 +253,33 @@ td, th {
   display:block;
   color: #5cb85c;
 }
+.table thead{
+  background-color:#5cb85c;
+  color: white;
+}
+#Classement{
+  text-align: center;
+  border-bottom-style: solid;
+  border-bottom-color: #5cb85c;
+  padding-bottom: 20px;
+}
+#name{
+  text-align: center;
+  padding-bottom: 20px;
 
+}
+#AJouer{
+  text-align: center;
+  border-bottom-style: solid;
+  border-bottom-color: #5cb85c;
+  padding-bottom: 20px;
+}
+#Derniers{
+  text-align: center;
+  border-bottom-style: solid;
+  border-bottom-color: #5cb85c;
+  padding-bottom: 20px;
+}
+.navbar-brand{
+  text-align: center;
+}
