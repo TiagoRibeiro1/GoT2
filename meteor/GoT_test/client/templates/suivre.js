@@ -107,6 +107,107 @@ Template.classement.helpers({
 });
 
 Template.suivre.helpers({
+  'checkTypeTournoi': function(idT){
+    if (this.typeTournoi == "CHP") {
+      return true;
+    } else if (this.typeTournoi == "ELD") {
+      return false;
+    } else if (this.typeTournoi == "CHE") {
+      // prévoir ce cas
+    }
+  },
+  eldColonnes: function(idT) {
+    let tournoi = Tournois.findOne({_id: idT});
+    let nbTours = Math.ceil(Math.log(tournoi.joueurs.length)/Math.LN2);
+    let cols = [];
+    for (var i = 1; i <= nbTours+1; i++) {
+      cols.push(i);
+    }
+    return cols;
+  },
+  eldLignes: function(idT){
+    let tournoi = Tournois.findOne({_id: idT});
+    let nbTours = Math.ceil(Math.log(tournoi.joueurs.length)/Math.LN2);
+    let joueurs = Math.pow(2, nbTours);
+    let lignes = [];
+    for (var i = 0; i < (joueurs/2)*3; i++) {
+      lignes.push(i);
+    }
+    return lignes;
+  },
+  eldCases: function(l, c, idT){
+    let tournoi = Tournois.findOne({_id: idT});
+    let nbTours = Math.ceil(Math.log(tournoi.joueurs.length)/Math.LN2);
+    let joueurs = Math.pow(2, nbTours);
+    let nbrMagique = joueurs*(3/8);
+    let nbrMagiqueTour = nbrMagique / Math.pow(2, (nbTours - c));
+    let antiNbrMagiqueTour = nbrMagiqueTour*(2/3);
+    if (c < 4) {
+      if (c == 1 && l % 3 != 0) {
+        return true;
+      } else if (c == 2 && l % 2 == 0 && l % 3 != 0) {
+        return true;
+      } else if (c == 3 && l % 2 != 0 && l % 3 == 0) {
+        return true;
+      }
+    } else {
+      for (var i = c; i < (joueurs/2)*3; i++) {
+        if (l % nbrMagiqueTour == 0 && l%antiNbrMagiqueTour != 0) {
+          return true;
+        }
+      }
+    }
+    // if (c == 1 && l % 3 != 0) {
+    //   return true;
+    // } else if (c == 2 && l % 2 == 0 && l % 3 != 0) {
+    //   return true;
+    // } else if (c == 3 && l % 2 != 0 && l % 3 == 0) {
+    //   return true;
+    // } else if (c == 4 && l % 6 == 0 && l % 4 != 0 && l % 12 != 0) {
+    //   return true;
+    // } else if (c == 5 && l % 12 == 0 && l % 8 != 0 && l % 24 != 0) {
+    //   return true;
+    // } else if (c == 6 && l % 24 == 0 && l % 16 != 0 && l % 48 != 0) {
+    //   return true;
+    // }
+  },
+  eldDiffJoueurs: function(l, c, idT) {
+    let tournoi = Tournois.findOne({_id: idT});
+    let nbTours = Math.ceil(Math.log(tournoi.joueurs.length)/Math.LN2);
+    let joueurs = Math.pow(2, nbTours);
+    let casesColonnes = (joueurs/2)*3
+    let nbrMagique = joueurs*(3/8);
+    let antiNbrMagique = nbrMagique*(2/3);
+    let nbrMagiqueTour = nbrMagique / Math.pow(2, (nbTours - c));
+    if (c < 3) {
+      for (var i = c; i <= casesColonnes; i+=3*c) {
+        if (i == l) {
+          return true;
+        }
+      }
+      return false;
+    } else if (c < nbTours) {
+      for (var i = nbrMagiqueTour; i < casesColonnes ; i += (nbrMagiqueTour*4)) {
+        if (i == l) {
+          return true;
+        }
+      }
+    } else if (c == nbTours) {
+      for (var i = nbrMagique; i < casesColonnes; i*=4) {
+        if (i == l) {
+          return true;
+        }
+      }
+    }
+    return false;
+  },
+  eldVainqueur: function(c, l, idT) {
+    let tournoi = Tournois.findOne({_id: idT});
+    let nbTours = Math.ceil(Math.log(tournoi.joueurs.length)/Math.LN2);
+    if (c > nbTours) {
+      return true;
+    }
+  },
   place: function(j, joueurs) {
     return joueurs.indexOf(j) + 1;
   }/*, TODO checker pour voir si cette fonction joue --> peu importe la méthode

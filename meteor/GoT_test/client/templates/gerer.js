@@ -88,8 +88,8 @@ Template.page_gerer.helpers({
     return tours;
   },
   'matchValide' : function(idMatch){
-    let match = Matchs.findOne({_id : idMatch});
-    if(match.j1.name == "" || match.j2.name == ""){
+    let match = Matchs.findOne({_id : idMatch}); // j'ai rajouté les scores
+    if(match.j1.name == "" || match.j2.name == "" || match.j1.score == match.j2.score){
       return false;
     } else {
       return true;

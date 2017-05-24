@@ -125,10 +125,10 @@ body{
 }
 .fieldset{
   text-align: center;
-  
+
 }
 .voir{
- 
+
 }
 .navbar-brand {
     float: center;
@@ -245,6 +245,30 @@ td, th {
 .goTournoi{
  cursor: pointer;
 }
+.validerScoreCHP{
+  cursor: pointer;
+}
+.validerScoreELD{
+  cursor: pointer;
+}
+
+.caseMatch {
+  border-right: 1px solid;
+}
+.caseMatch.j1 {
+  border-top: 1px solid;
+}
+.caseMatch.j2 {
+  border-bottom: 1px solid;
+}
+.caseMatch.vainqueur{
+  border-left : 3px solid;
+  border-bottom: 3px solid;
+  border-right: none;
+  border-color: lime;
+  font-weight: bold;
+}
+
 #supp{
   cursor: pointer;
 }

@@ -157,8 +157,6 @@ AutoForm.hooks({
         }
 
         setNextMatch(idT, nbTours);
-
-        console.log("Elimination directe");
       } else {
         console.log("Chmp puis Eldi");
       }

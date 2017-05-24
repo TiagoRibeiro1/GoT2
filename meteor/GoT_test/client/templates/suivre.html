@@ -5,37 +5,64 @@
 <template name="suivre">
   {{#if name}}
     <h1>{{name}}</h1>
-    <h3>Classement</h3>
+    {{#if checkTypeTournoi _id}}
+      <h5>Championnat</h5>
 
-    <table class="table table-striped table-responsive">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Joueur</th>
-          <th>J</th>
-          <th>V</th>
-          <th>N</th>
-          <th>D</th>
-          <th>+</th>
-          <th>-</th>
-          <th>+/-</th>
-          <th>PTS</th>
-        </tr>
-      </thead>
+      <h3>Classement</h3>
 
-      <tbody>
-        {{#each joueur in joueurs}}
-        <tr id="rang{{place joueur joueurs}}">
-          <td>{{place joueur joueurs}}</td>
-          <td>{{joueur}}</td>
-          {{> classement name=joueur tournoi=_id}}
-        </tr>
-        {{/each}}
-      </tbody>
-    </table>
-    {{> termine tournoi=_id}}
-    {{> aJouer tournoi=_id}}
+      <table class="table table-striped table-responsive">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Joueur</th>
+            <th>J</th>
+            <th>V</th>
+            <th>N</th>
+            <th>D</th>
+            <th>+</th>
+            <th>-</th>
+            <th>+/-</th>
+            <th>PTS</th>
+          </tr>
+        </thead>
 
+        <tbody>
+          {{#each joueur in joueurs}}
+          <tr id="rang{{place joueur joueurs}}">
+            <td>{{place joueur joueurs}}</td>
+            <td>{{joueur}}</td>
+            {{> classement name=joueur tournoi=_id}}
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      {{> termine tournoi=_id}}
+      {{> aJouer tournoi=_id}}
+    {{else}}
+      <h5>Elimination directe</h5>
+        <table>
+          {{#each l in eldLignes _id}}
+            <tr>
+              {{#each t in eldColonnes _id}}
+                {{#if eldCases l t _id}}
+                  {{#if eldDiffJoueurs l t _id}}
+                    <td class="caseMatch j1 t{{t}}" id="{{l}}.{{t}}">Joueur &nbsp;</td>
+                  {{else}}
+                    {{#if eldVainqueur t l _id}}
+                      <td class="caseMatch vainqueur" id="{{l}}.{{t}}">Joueur &nbsp;</td>
+                    {{else}}
+                      <td class="caseMatch j2 t{{t}}" id="{{l}}.{{t}}">Joueur &nbsp;</td>
+                    {{/if}}
+                  {{/if}}
+                {{else}}
+                  <td id="{{l}}.{{t}}">&nbsp;</td>
+                {{/if}}
+              {{/each}}
+            </tr>
+          {{/each}}
+        </table>
+
+    {{/if}}
   {{else}}
     {{> fieldset val_title="VOIR" val_var=true btn_txt="GO" fs_id="inputSuivre" fs_id_btn="boutonSuivre"}}
   {{/if}}
