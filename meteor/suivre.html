@@ -1,0 +1,97 @@
+<template name="page_suivre">
+  {{> suivre}}
+</template>
+
+<template name="suivre">
+  {{#if name}}
+    <h1 id="name">{{name}}</h1>
+    <h3 id="Classement">Classement</h3>
+
+    <table class="table table-striped table-responsive">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Joueur</th>
+          <th>J</th>
+          <th>V</th>
+          <th>N</th>
+          <th>D</th>
+          <th>+</th>
+          <th>-</th>
+          <th>+/-</th>
+          <th>PTS</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {{#each joueur in joueurs}}
+        <tr id="rang{{place joueur joueurs}}">
+          <td>{{place joueur joueurs}}</td>
+          <td>{{joueur}}</td>
+          {{> classement name=joueur tournoi=_id}}
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    {{> termine tournoi=_id}}
+    {{> aJouer tournoi=_id}}
+
+  {{else}}
+    {{> fieldset val_title="VOIR" val_var=true btn_txt="GO" fs_id="inputSuivre" fs_id_btn="boutonSuivre"}}
+  {{/if}}
+  <!-- {{classementColore _id}} TODO Checker si la function pour mettre le 1er rang en vert fonctionne-->
+</template>
+
+<template name="classement">
+  <td>{{matchJoue name tournoi}}</td>
+  <td>{{matchGagne name tournoi}}</td>
+  <td>{{matchNul name tournoi}}</td>
+  <td>{{matchPerdu name tournoi}}</td>
+  <td>{{scorePositif name tournoi}}</td>
+  <td>{{scoreNegatif name tournoi}}</td>
+  <td>{{diffScore name tournoi}}</td>
+  <td>{{totalPoints name tournoi}}</td>
+</template>
+
+<template name="termine">
+  {{#if nbrMatchsTermines tournoi}}
+  <h3 id="Derniers">Derniers résultats</h3>
+  <table class="table table-striped table-responsive">
+    <tbody>
+      {{#each matchTermines tournoi}}
+        <tr>
+          <td>{{j1.name}}</td>
+          <td class="score">{{j1.score}}</td>
+          <td>-</td>
+          <td class="score">{{j2.score}}</td>
+          <td>{{j2.name}}</td>
+          <td>{{dateModif}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  {{/if}}
+</template>
+
+<template name="aJouer">
+  {{#if nbrMatchRestants tournoi}}
+    <h3 id="AJouer">A jouer</h3>
+    <div class="row">
+      {{#each matchRestants tournoi}}
+      <div class="col-xs-6 col-md-4 col-lg-2 matchAjouer">
+        <div class="row">
+          <span class="col-xs-5">
+            {{j1.name}}
+          </span>
+          <span class="col-xs-2">
+            -
+          </span>
+          <span class="col-xs-5">
+            {{j2.name}}
+          </span>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  {{/if}}
+</template>
