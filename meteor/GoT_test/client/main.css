@@ -237,9 +237,7 @@ body{
 
 td, th {
   text-align: center;
-}
-td.caseMatch {
-  text-align: right;
+  width: 100px;
 }
 
 .score {
@@ -255,8 +253,12 @@ td.caseMatch {
   cursor: pointer;
 }
 
+.caseArbre {
+  border-right: 1px solid;
+}
 .caseMatch {
   border-right: 1px solid;
+  text-align: right;
 }
 .caseMatch.j1 {
   border-top: 1px solid;
@@ -265,10 +267,10 @@ td.caseMatch {
   border-bottom: 1px solid;
 }
 .caseMatch.vainqueur{
-  border-left : 3px solid;
-  border-bottom: 3px solid;
+  border-left : 1px solid;
+  border-bottom: 3px solid lime;
   border-right: none;
-  border-color: lime;
+  text-align: center;
   font-weight: bold;
 }
 

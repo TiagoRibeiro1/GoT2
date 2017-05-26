@@ -116,6 +116,9 @@ Template.suivre.helpers({
       // prévoir ce cas
     }
   },
+  place: function(j, joueurs) {
+    return joueurs.indexOf(j) + 1;
+  },
   eldColonnes: function(idT) {
     // Cette fonction retourne un array avec les tours pour créer les colonnes
     let tournoi = Tournois.findOne({_id: idT});
@@ -304,7 +307,7 @@ Template.suivre.helpers({
     }
     return false;
   },
-  eldVainqueur: function(c, l, idT) {
+  eldVainqueur: function(l, c, idT) {
     // Cette fonction retourne la case du vainqueur
     let tournoi = Tournois.findOne({_id: idT});
     let nbTours = Math.ceil(Math.log(tournoi.joueurs.length)/Math.LN2);
@@ -313,9 +316,29 @@ Template.suivre.helpers({
       return true;
     }
   },
-  place: function(j, joueurs) {
-    return joueurs.indexOf(j) + 1;
-  }/*, TODO checker pour voir si cette fonction joue --> peu importe la méthode
+  lignesArbre: function(l, c, idT) {
+    let tournoi = Tournois.findOne({_id: idT});
+    let nbTours = Math.ceil(Math.log(tournoi.joueurs.length)/Math.LN2);
+    let joueurs = Math.pow(2, nbTours);
+    let casesColonnes = (joueurs/2)*3 // cases à remplir
+    let nbrMagique = joueurs*(3/8); // Indice de la première ligne au dernier tour (pour t>=3)
+    let nbrMagiqueTour = nbrMagique / Math.pow(2, (nbTours - c)); // Indice de la première ligne remplie par tour (pour t>=3)
+
+    if (c == 2) {
+      if (l % 2 != 0 && l % 3 == 0) {
+        return true;
+      }
+    } else if (c < 2 || c > nbTours) {
+        return false;
+    } else if (c > 2) {
+        for (i = nbrMagiqueTour; i < casesColonnes; i += nbrMagiqueTour*4) {
+          if (l > i && l < i+nbrMagiqueTour*2) {
+            return true;
+          }
+        }
+    }
+  }
+  /*, TODO checker pour voir si cette fonction joue --> peu importe la méthode
   classementColore: function(idT){
     let r2 = document.getElementById("rang1");
     console.log(r2);
@@ -327,7 +350,7 @@ Template.suivre.helpers({
       r1.className = "success";
     }
   }*/
-})
+});
 
 Template.aJouer.helpers({
   matchRestants: function(idT){

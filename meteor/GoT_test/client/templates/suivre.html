@@ -48,14 +48,18 @@
                   {{#if eldDiffJoueurs l t _id}}
                     <td class="caseMatch j1 t{{t}}" id="{{l}}.{{t}}">{{selectJ1 l t _id}} &nbsp;</td>
                   {{else}}
-                    {{#if eldVainqueur t l _id}}
+                    {{#if eldVainqueur l t _id}}
                       <td class="caseMatch vainqueur" id="{{l}}.{{t}}">{{vainqueur l t _id}} &nbsp;</td>
                     {{else}}
                       <td class="caseMatch j2 t{{t}}" id="{{l}}.{{t}}">{{selectJ2 l t _id}} &nbsp;</td>
                     {{/if}}
                   {{/if}}
                 {{else}}
-                  <td id="{{l}}.{{t}}">&nbsp;</td>
+                  {{#if lignesArbre l t _id}}
+                    <td id="{{l}}.{{t}}" class="caseArbre">&nbsp;</td>
+                  {{else}}
+                    <td id="{{l}}.{{t}}">&nbsp;</td>
+                  {{/if}}
                 {{/if}}
               {{/each}}
             </tr>
