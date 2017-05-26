@@ -238,6 +238,9 @@ body{
 td, th {
   text-align: center;
 }
+td.caseMatch {
+  text-align: right;
+}
 
 .score {
   font-weight: bold;
