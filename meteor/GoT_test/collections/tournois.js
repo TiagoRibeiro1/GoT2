@@ -90,11 +90,12 @@ Tournois.attachSchema(new SimpleSchema({
   },
   joueurs: {
     type: Array,
-    label: "Liste des équipes (1 par ligne)",
+    label: "Liste des équipes (1 par ligne et min. 2 équipes)",
     autoform: {
       type:'textarea',
       rows: 5
-    }
+    },
+    minCount: 3 // Au moins 3 joueurs
   },
   'joueurs.$': String
 }, { tracker: Tracker }));

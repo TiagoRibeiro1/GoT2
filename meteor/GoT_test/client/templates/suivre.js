@@ -196,10 +196,18 @@ Template.suivre.helpers({
       nuMatchTour: [c,nuMatch]
     });
     // Si le joueur du match est connu, alors afficher son nom et score
-    if (match.j1.name) {
-      return ` ${match.j1.name}: ${match.j1.score} `;
+    if (match.termine) {
+      if (match.j1.name) {
+        if (match.j1.name != 'exempt') {
+          return ` ${match.j1.name}: ${match.j1.score} `;
+        } else {
+          return "-";
+        }
+      } else {
+        return "-";
+      }
     } else {
-      return "-";
+      return ` ${match.j1.name}`;
     }
   },
   selectJ2: function(l, c, idT) {
@@ -232,10 +240,17 @@ Template.suivre.helpers({
       nuMatchTour: [c,nuMatch]
     });
     // Si le joueur du match est connu, alors afficher son nom et score
-    if (match.j2.name) {
-      return ` ${match.j2.name}: ${match.j2.score} `;
+    if (match.termine) {
+      if (match.j2.name) {
+        if (match.j1.name == 'exempt') {
+          return ` ${match.j2.name}`
+        }
+        return ` ${match.j2.name}: ${match.j2.score} `;
+      } else {
+        return "-";
+      }
     } else {
-      return "-";
+      return ` ${match.j2.name}`;
     }
   },
   vainqueur: function(l, c, idT) {
@@ -245,7 +260,8 @@ Template.suivre.helpers({
     // c'est forcément le dernier match
     let match = Matchs.findOne({
                   idTournoi: idT,
-                  tour: nbTours
+                  tour: nbTours,
+                  termine: true
                 });
     // Retourne le nom du vainqueur
     if (match.j1.score > match.j2.score) {
