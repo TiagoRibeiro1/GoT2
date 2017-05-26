@@ -171,6 +171,32 @@ Template.suivre.helpers({
     //   return true;
     // }
   },
+  selectJ1: function(l, c, idT) {
+    let tournoi = Tournois.findOne({_id: idT});
+    let nbTours = Math.ceil(Math.log(tournoi.joueurs.length)/Math.LN2);
+    let joueurs = Math.pow(2, nbTours);
+    let casesColonnes = (joueurs/2)*3;
+    let match;
+    let nuMatch = 1;
+
+    if (c < 3) {
+      let divTour = (-1/6)*c + 1/2;
+      nuMatch = Math.round((divTour*l)+(2/3));
+    } else {
+      let divTour = + 3/4;
+    }
+    match = Matchs.findOne({
+      idTournoi: idT,
+      nuMatchTour: [c,nuMatch]
+    });
+
+    if (match) {
+      return match.j1.name;
+    } else {
+      // console.log("pasmatch");
+      return "j1";
+    }
+  },
   eldDiffJoueurs: function(l, c, idT) {
     let tournoi = Tournois.findOne({_id: idT});
     let nbTours = Math.ceil(Math.log(tournoi.joueurs.length)/Math.LN2);
@@ -222,6 +248,7 @@ Template.suivre.helpers({
       r1.className = "success";
     }
   }*/
+
 })
 
 Template.aJouer.helpers({

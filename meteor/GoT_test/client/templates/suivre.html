@@ -46,12 +46,12 @@
               {{#each t in eldColonnes _id}}
                 {{#if eldCases l t _id}}
                   {{#if eldDiffJoueurs l t _id}}
-                    <td class="caseMatch j1 t{{t}}" id="{{l}}.{{t}}">Joueur &nbsp;</td>
+                    <td class="caseMatch j1 t{{t}}" id="{{l}}.{{t}}">{{selectJ1 l t _id}}&nbsp;</td>
                   {{else}}
                     {{#if eldVainqueur t l _id}}
-                      <td class="caseMatch vainqueur" id="{{l}}.{{t}}">Joueur &nbsp;</td>
+                      <td class="caseMatch vainqueur" id="{{l}}.{{t}}">GAGNANT &nbsp;</td>
                     {{else}}
-                      <td class="caseMatch j2 t{{t}}" id="{{l}}.{{t}}">Joueur &nbsp;</td>
+                      <td class="caseMatch j2 t{{t}}" id="{{l}}.{{t}}">J2 &nbsp;</td>
                     {{/if}}
                   {{/if}}
                 {{else}}

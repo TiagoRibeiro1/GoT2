@@ -291,5 +291,6 @@ Template.page_gerer.events ({
       }
     }
     Matchs.update({_id: idMatch}, {$set: {termine: true, dateModif: date, timeStamp: now}});
+    Template.suivre.fctTest();
   }
 });
