@@ -237,7 +237,13 @@ body{
 
 td, th {
   text-align: center;
-  width: 100px;
+  /*width: 100px;*/
+}
+#arbreELD td {
+  padding: 2px;
+  line-height: 1.42857143;
+  vertical-align: top;
+  border-top: none;
 }
 
 .score {
@@ -253,14 +259,14 @@ td, th {
   cursor: pointer;
 }
 
-.caseArbre {
+#arbreELD .caseArbre {
   border-right: 1px solid;
 }
 .caseMatch {
   border-right: 1px solid;
   text-align: right;
 }
-.caseMatch.j1 {
+#arbreELD .caseMatch.j1 {
   border-top: 1px solid;
 }
 .caseMatch.j2 {
@@ -268,7 +274,6 @@ td, th {
 }
 .caseMatch.vainqueur{
   border-left : 1px solid;
-  border-bottom: 3px solid lime;
   border-right: none;
   text-align: center;
   font-weight: bold;

@@ -40,7 +40,13 @@
       {{> aJouer tournoi=_id}}
     {{else}}
       <h5>Elimination directe</h5>
-        <table>
+        <table id="arbreELD" class="table table-condensed table-responsive">
+          <thead>
+            {{#each tour in nbrToursELD _id}}
+            <th>{{labelTours _id tour}}</th>
+            {{/each}}
+          </thead>
+          <tbody>
           {{#each l in eldLignes _id}}
             <tr>
               {{#each t in eldColonnes _id}}
@@ -49,7 +55,7 @@
                     <td class="caseMatch j1 t{{t}}" id="{{l}}.{{t}}">{{selectJ1 l t _id}} &nbsp;</td>
                   {{else}}
                     {{#if eldVainqueur l t _id}}
-                      <td class="caseMatch vainqueur" id="{{l}}.{{t}}">{{vainqueur l t _id}} &nbsp;</td>
+                      <td class="caseMatch vainqueur {{#if vainqueur l t _id}}bg-success{{/if}}" id="{{l}}.{{t}}">{{vainqueur l t _id}} &nbsp;</td>
                     {{else}}
                       <td class="caseMatch j2 t{{t}}" id="{{l}}.{{t}}">{{selectJ2 l t _id}} &nbsp;</td>
                     {{/if}}
@@ -64,6 +70,7 @@
               {{/each}}
             </tr>
           {{/each}}
+          </tbody>
         </table>
 
     {{/if}}

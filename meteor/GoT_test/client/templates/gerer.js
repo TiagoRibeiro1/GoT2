@@ -88,7 +88,8 @@ Template.page_gerer.helpers({
     return tours;
   },
   'matchJouable': function(idM) {
-    let match = Matchs.findOne({_id : idM}); // j'ai rajouté les scores
+    // Défini si les deux joueurs sont connus
+    let match = Matchs.findOne({_id : idM});
     if(match.j1.name == "" || match.j2.name == ""){
       return false;
     } else {
@@ -96,13 +97,20 @@ Template.page_gerer.helpers({
     }
   },
   'matchValide': function(idMatch){
-    let match = Matchs.findOne({_id : idMatch}); // j'ai rajouté les scores
-    console.log(match);
+    // Défini si les joueurs sont connus et le score n'est pas égalité
+    let match = Matchs.findOne({_id : idMatch});
     if(match.j1.name == "" || match.j2.name == "" || match.j1.score == match.j2.score){
       return false;
     } else {
       return true;
     }
+  },
+  'belleDate': function(d) {
+    let mins = d.getMinutes();
+    if (mins < 10) {
+      mins = `0${mins}`
+    }
+    return `${d.getDate()}.${d.getMonth()+1}.${d.getFullYear()} / ${d.getHours()}:${mins}`;
   }
 });
 

@@ -119,6 +119,45 @@ Template.suivre.helpers({
   place: function(j, joueurs) {
     return joueurs.indexOf(j) + 1;
   },
+  nbrToursELD: function(idT) {
+    let tours =[];
+    let nbTours = Math.log(Matchs.find({idTournoi: idT}).count()+1)/Math.LN2;
+    for (var i = 1; i <= nbTours+1; i++) {
+      tours.push(i);
+    }
+    return tours;
+  },
+  labelTours: function(idT, tour){
+    let labels = [];
+    let tournoi = Tournois.findOne({_id:idT});
+    let nbTours = Math.log(Matchs.find({idTournoi: idT}).count()+1)/Math.LN2;
+    // Boucle pour remplir les valeurs des tours
+    for (var i = nbTours; i > 0; i--) {
+      // Les 4 derniers tours sont appelés par leurs noms, sinon calcul du tour
+      if (i == 1) {
+        labels.push("Finale");
+      } else if (i == 2) {
+        labels.push("Demi-finales");
+      } else if (i == 3) {
+        labels.push("Quarts de finale");
+      } else if (i == 4) {
+        labels.push("Huitièmes de finale");
+      } else {
+        // Si le nbr de joueurs inscrit n'est pas une puissance de 2, alors le premier tour est préliminaire
+        if (tournoi.joueurs.length != Math.pow(2, nbTours)) {
+          // Si c'est le tour préliminaire, il faut ajuster les numéros de tour restants
+          if (i == nbTours) {
+            labels.push("Tour préliminaire");
+          } else {
+            labels.push(`Tour ${nbTours-i}`)
+          }
+        } else {
+          labels.push(`Tour ${nbTours-i+1}`);
+        }
+      }
+    }
+    return labels[tour-1];
+  },
   eldColonnes: function(idT) {
     // Cette fonction retourne un array avec les tours pour créer les colonnes
     let tournoi = Tournois.findOne({_id: idT});
