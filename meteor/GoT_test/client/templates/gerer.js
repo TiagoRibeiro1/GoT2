@@ -125,7 +125,7 @@ Template.page_gerer.events ({
     event.preventDefault();
     let idTournoi = this._id;
     Router.go(`/gerer/${idTournoi}`);
-  },
+  }, //$('td#j19').prop('title', 'Hey')
   'keydown [name=scoreInputJ1], blur [name=scoreInputJ1]': function(event){
     let tournoi = Tournois.findOne({_id : this.idTournoi});
     let idMatch = this._id;
@@ -138,12 +138,14 @@ Template.page_gerer.events ({
       // if score1 is invalid, change background-color and icon type
       $(event.currentTarget).css("background-color", "lightSalmon");
       glyphicon.removeClass("glyphicon-ok").addClass("glyphicon-alert");
+      glyphicon.prop('title', 'Score j1 invalide');
     } else {
       // check if score2 is valid
       if (isNaN(score2) || score2 === '' || score2 < 0) {
         // if score2 is invalid, change background-color and icon type
         input2.css("background-color", "lightSalmon");
         $(event.currentTarget).css("background-color", "");
+        glyphicon.prop('title', 'Score j2 invalide');
       } else {
         // check to avoid draw in direct elimination
         if(tournoi.typeTournoi == "ELD" && score1 == score2){
@@ -151,12 +153,14 @@ Template.page_gerer.events ({
           $(event.currentTarget).css("background-color", "PeachPuff");
           input2.css("background-color", "PeachPuff");
           glyphicon.removeClass("glyphicon-ok").addClass("glyphicon-alert");
+          glyphicon.prop('title', 'Match nul impossible');
         } else {
           // if scores are valid, reset background-color and update collection
           if (event.type == 'focusout' || (event.which == 13 || event.which == 27 || event.which == 9)){
             Matchs.update({ _id : idMatch}, {$set: {"j1.score" : score1}});
           }
           glyphicon.removeClass("glyphicon-alert").addClass("glyphicon-ok");
+          glyphicon.prop('title', 'Valider résultat');
           $(event.currentTarget).css("background-color", "");
           input2.css("background-color", "");
         }
@@ -175,12 +179,14 @@ Template.page_gerer.events ({
       // if score2 is invalid, change background-color and icon type
       $(event.currentTarget).css("background-color", "lightSalmon");
       glyphicon.removeClass("glyphicon-ok").addClass("glyphicon-alert");
+      glyphicon.prop('title', 'Score j2 invalide');
     } else {
       // check if score1 is valid
       if (isNaN(score1) || score1 === '' || score1 < 0) {
         // if score1 is invalid, change background-color and icon type
         input1.css("background-color", "lightSalmon");
         $(event.currentTarget).css("background-color", "");
+        glyphicon.prop('title', 'Score j1 invalide');
       } else {
         // check to avoid draw in direct elimination
         if(tournoi.typeTournoi == "ELD" && score2 == score1){
@@ -188,12 +194,14 @@ Template.page_gerer.events ({
           $(event.currentTarget).css("background-color", "PeachPuff");
           input1.css("background-color", "PeachPuff");
           glyphicon.removeClass("glyphicon-ok").addClass("glyphicon-alert");
+          glyphicon.prop('title', 'Match nul impossible');
         } else {
           // if scores are valid, reset background-color and update collection
           if (event.type == 'focusout' || (event.which == 13 || event.which == 27 || event.which == 9)){
             Matchs.update({ _id : idMatch}, {$set: {"j2.score" : score2}});
           }
           glyphicon.removeClass("glyphicon-alert").addClass("glyphicon-ok");
+          glyphicon.prop('title', 'Valider résultat');
           $(event.currentTarget).css("background-color", "");
           input1.css("background-color", "");
         }

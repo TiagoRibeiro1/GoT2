@@ -30,7 +30,7 @@
                     <td> - </td>
                     <td><input class="inputScore inputScore{{nuMatch}} {{nuMatch}}" type="number" min="0" value="{{j2.score}}" name="scoreInputJ2"></td>
                     <td>{{j2.name}}</td>
-                    <td><span id={{nuMatch}} class="glyphicon glyphicon-ok validerScoreCHP"></span></td>
+                    <td><span id={{nuMatch}} class="glyphicon glyphicon-ok validerScoreCHP" data-toggle="tooltip" title="Valider résultat"></span></td>
                   </tr>
                 {{/each}}
               </tbody>
@@ -77,10 +77,14 @@
                     {{else}}
                       <td><input class="inputScore inputScore{{nuMatch}} {{nuMatch}}" type="number" min="0" value="{{j2.score}}" name="scoreInputJ2" disabled></td>
                     {{/if}}<td id="j2{{nuMatch}}">{{j2.name}}</td>
-                    {{#if matchValide _id }}
-                      <td><span id={{nuMatch}} class="glyphicon glyphicon-ok validerScoreELD"></span></td>
+                    {{#if matchJouable _id }}
+                      {{#if matchValide _id}}
+                        <td><span id={{nuMatch}} class="glyphicon glyphicon-ok validerScoreELD" data-toggle="tooltip" title="Valider résultat"></span></td>
+                      {{else}}
+                        <td><span id={{nuMatch}} class="glyphicon glyphicon-alert validerScoreELD" data-toggle="tooltip" title="Match nul impossible"></span></td>
+                      {{/if}}
                     {{else}}
-                      <td><span id={{nuMatch}} class="glyphicon glyphicon-alert validerScoreELD"></span></td>
+                      <td><span id={{nuMatch}} class="glyphicon glyphicon-alert validerScoreELD" data-toggle="tooltip" title="Joueur(s) non défini(s)"></span></td>
                     {{/if}}
                   </tr>
                 {{/each}}
