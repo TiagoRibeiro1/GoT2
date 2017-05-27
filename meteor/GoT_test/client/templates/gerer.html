@@ -66,10 +66,17 @@
                 {{#each matchRestants _id tour}}
                   <tr>
                     <td id="j1{{nuMatch}}">{{j1.name}}</td>
-                    <td><input class="inputScore inputScore{{nuMatch}} {{nuMatch}}" type="number" min="0" value="{{j1.score}}" name="scoreInputJ1"></td>
+                    {{#if matchJouable _id}}
+                      <td><input class="inputScore inputScore{{nuMatch}} {{nuMatch}}" type="number" min="0" value="{{j1.score}}" name="scoreInputJ1"></td>
+                    {{else}}
+                      <td><input class="inputScore inputScore{{nuMatch}} {{nuMatch}}" type="number" min="0" value="{{j1.score}}" name="scoreInputJ1" disabled></td>
+                    {{/if}}
                     <td> - </td>
-                    <td><input class="inputScore inputScore{{nuMatch}} {{nuMatch}}" type="number" min="0" value="{{j2.score}}" name="scoreInputJ2"></td>
-                    <td id="j2{{nuMatch}}">{{j2.name}}</td>
+                    {{#if matchJouable _id}}
+                      <td><input class="inputScore inputScore{{nuMatch}} {{nuMatch}}" type="number" min="0" value="{{j2.score}}" name="scoreInputJ2"></td>
+                    {{else}}
+                      <td><input class="inputScore inputScore{{nuMatch}} {{nuMatch}}" type="number" min="0" value="{{j2.score}}" name="scoreInputJ2" disabled></td>
+                    {{/if}}<td id="j2{{nuMatch}}">{{j2.name}}</td>
                     {{#if matchValide _id }}
                       <td><span id={{nuMatch}} class="glyphicon glyphicon-ok validerScoreELD"></span></td>
                     {{else}}

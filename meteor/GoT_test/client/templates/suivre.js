@@ -267,15 +267,16 @@ Template.suivre.helpers({
                   termine: true
                 });
     // Retourne le nom du vainqueur
-    if (match.j1.score > match.j2.score) {
-      return match.j1.name;
-    } else {
-      return match.j2.name;
+    if (match) {
+      if (match.j1.score > match.j2.score) {
+        return match.j1.name;
+      } else {
+        return match.j2.name;
+      }
     }
   },
   eldDiffJoueurs: function(l, c, idT) {
     // Cette fonctoin différencie les j1 des j2
-    // Cette fonction détermine s'il y a un joueur dans la case en question
     let tournoi = Tournois.findOne({_id: idT});
     let nbTours = Math.ceil(Math.log(tournoi.joueurs.length)/Math.LN2);
     let joueurs = Math.pow(2, nbTours);

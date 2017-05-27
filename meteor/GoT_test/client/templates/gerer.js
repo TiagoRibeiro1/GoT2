@@ -87,8 +87,17 @@ Template.page_gerer.helpers({
     }
     return tours;
   },
-  'matchValide' : function(idMatch){
+  'matchJouable': function(idM) {
+    let match = Matchs.findOne({_id : idM}); // j'ai rajouté les scores
+    if(match.j1.name == "" || match.j2.name == ""){
+      return false;
+    } else {
+      return true;
+    }
+  },
+  'matchValide': function(idMatch){
     let match = Matchs.findOne({_id : idMatch}); // j'ai rajouté les scores
+    console.log(match);
     if(match.j1.name == "" || match.j2.name == "" || match.j1.score == match.j2.score){
       return false;
     } else {
@@ -139,17 +148,17 @@ Template.page_gerer.events ({
         // check to avoid draw in direct elimination
         if(tournoi.typeTournoi == "ELD" && score1 == score2){
           // in case of draw, change both background-color and icon type
-          $(event.currentTarget).css("background-color", "lightSalmon");
-          input2.css("background-color", "lightSalmon");
+          $(event.currentTarget).css("background-color", "PeachPuff");
+          input2.css("background-color", "PeachPuff");
           glyphicon.removeClass("glyphicon-ok").addClass("glyphicon-alert");
         } else {
           // if scores are valid, reset background-color and update collection
-          glyphicon.removeClass("glyphicon-alert").addClass("glyphicon-ok");
-          $(event.currentTarget).css("background-color", "");
-          input2.css("background-color", "");
           if (event.type == 'focusout' || (event.which == 13 || event.which == 27 || event.which == 9)){
             Matchs.update({ _id : idMatch}, {$set: {"j1.score" : score1}});
           }
+          glyphicon.removeClass("glyphicon-alert").addClass("glyphicon-ok");
+          $(event.currentTarget).css("background-color", "");
+          input2.css("background-color", "");
         }
       }
     }
@@ -176,17 +185,17 @@ Template.page_gerer.events ({
         // check to avoid draw in direct elimination
         if(tournoi.typeTournoi == "ELD" && score2 == score1){
           // in case of draw, change both background-color and icon type
-          $(event.currentTarget).css("background-color", "lightSalmon");
-          input1.css("background-color", "lightSalmon");
+          $(event.currentTarget).css("background-color", "PeachPuff");
+          input1.css("background-color", "PeachPuff");
           glyphicon.removeClass("glyphicon-ok").addClass("glyphicon-alert");
         } else {
           // if scores are valid, reset background-color and update collection
-          glyphicon.removeClass("glyphicon-alert").addClass("glyphicon-ok");
-          $(event.currentTarget).css("background-color", "");
-          input1.css("background-color", "");
           if (event.type == 'focusout' || (event.which == 13 || event.which == 27 || event.which == 9)){
             Matchs.update({ _id : idMatch}, {$set: {"j2.score" : score2}});
           }
+          glyphicon.removeClass("glyphicon-alert").addClass("glyphicon-ok");
+          $(event.currentTarget).css("background-color", "");
+          input1.css("background-color", "");
         }
       }
     }
@@ -291,6 +300,5 @@ Template.page_gerer.events ({
       }
     }
     Matchs.update({_id: idMatch}, {$set: {termine: true, dateModif: date, timeStamp: now}});
-    Template.suivre.fctTest();
   }
 });
