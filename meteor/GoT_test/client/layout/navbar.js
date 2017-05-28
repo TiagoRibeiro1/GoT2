@@ -4,3 +4,9 @@ Template.navBar.events({
         Meteor.logout();
     }
 });
+
+Template.navBar.helpers({
+    logo: function() {
+      return Meteor.absoluteUrl("favicon.png");
+    }
+});
