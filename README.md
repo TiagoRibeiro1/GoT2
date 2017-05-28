@@ -38,7 +38,7 @@ GoT2 utilise également les packages suivants (déjà contenus dans le code, auc
  - iron:router
  - autoform (nécessite simpl-schema)
 
-## Installation
+## Installation (Windows)
 - Meteor
 
     1. Aller sur https://www.meteor.com/install
@@ -57,13 +57,13 @@ GoT2 utilise également les packages suivants (déjà contenus dans le code, auc
     4. git clone https://github.com/TiagoRibeiro1/GoT2
 
 - Installer les dépendances
-    1. meteor npm install --save babel-runtime
-    2. meteor npm install --save simpl-schema
-    3. meteor npm install --save meteor-node-stubs
+    1. cd GoT2/meteor/GoT_test
+    2. meteor npm install --save babel-runtime
+    3. meteor npm install --save simpl-schema
+    4. meteor npm install --save meteor-node-stubs
 
 - Lancer GoT2
-    1. cd GoT2/meteor/GoT_test
-    2. meteor (accepter la règle de firewall, au besoin)
+    1. meteor (accepter la règle de firewall, au besoin)
 
 - Accéder à GoT2
     1. Ouvrir son navigateur

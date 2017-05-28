@@ -27,7 +27,36 @@ long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=-1
+current_page=5
+FILE_NAME_0=0;CSS;0;EUTF-8;0;1;0;%2Fhome%2Fkp%2FGitHub%2FGoT2%2Fmeteor%2FGoT_test%2Fclient%2Fmain.css;0;4
+FILE_NAME_1=0;HTML;0;EUTF-8;0;1;0;%2Fhome%2Fkp%2FGitHub%2FGoT2%2Fmeteor%2FGoT_test%2Fclient%2Fmain.html;0;4
+FILE_NAME_2=0;Javascript;0;EUTF-8;0;1;0;%2Fhome%2Fkp%2FGitHub%2FGoT2%2Fmeteor%2FGoT_test%2Fclient%2Fmain.js;0;4
+FILE_NAME_3=0;HTML;0;EUTF-8;0;1;0;%2Fhome%2Fkp%2FGitHub%2FGoT2%2Fmeteor%2FGoT_test%2Fclient%2Ftemplates%2Fabout.html;0;4
+FILE_NAME_4=0;HTML;0;EUTF-8;0;1;0;%2Fhome%2Fkp%2FGitHub%2FGoT2%2Fmeteor%2FGoT_test%2Fclient%2Ftemplates%2Fcreer.html;0;4
+FILE_NAME_5=1049;Javascript;0;EUTF-8;0;1;0;%2Fhome%2Fkp%2FGitHub%2FGoT2%2Fmeteor%2FGoT_test%2Fclient%2Ftemplates%2Fcreer.js;0;4
+FILE_NAME_6=0;HTML;0;EUTF-8;0;1;0;%2Fhome%2Fkp%2FGitHub%2FGoT2%2Fmeteor%2FGoT_test%2Fclient%2Ftemplates%2Fdisclaimer.html;0;4
+FILE_NAME_7=0;HTML;0;EUTF-8;0;1;0;%2Fhome%2Fkp%2FGitHub%2FGoT2%2Fmeteor%2FGoT_test%2Fclient%2Ftemplates%2Fenregistrement.html;0;4
+FILE_NAME_8=0;Javascript;0;EUTF-8;0;1;0;%2Fhome%2Fkp%2FGitHub%2FGoT2%2Fmeteor%2FGoT_test%2Fclient%2Ftemplates%2Fenregistrement.js;0;4
+FILE_NAME_9=0;HTML;0;EUTF-8;0;1;0;%2Fhome%2Fkp%2FGitHub%2FGoT2%2Fmeteor%2FGoT_test%2Fclient%2Ftemplates%2Fgerer.html;0;4
+FILE_NAME_10=13207;Javascript;0;EUTF-8;0;1;0;%2Fhome%2Fkp%2FGitHub%2FGoT2%2Fmeteor%2FGoT_test%2Fclient%2Ftemplates%2Fgerer.js;0;4
+FILE_NAME_11=0;HTML;0;EUTF-8;0;1;0;%2Fhome%2Fkp%2FGitHub%2FGoT2%2Fmeteor%2FGoT_test%2Fclient%2Ftemplates%2Fhomepage.html;0;4
+FILE_NAME_12=0;Javascript;0;EUTF-8;0;1;0;%2Fhome%2Fkp%2FGitHub%2FGoT2%2Fmeteor%2FGoT_test%2Fclient%2Ftemplates%2Fhomepage.js;0;4
+FILE_NAME_13=0;HTML;0;EUTF-8;0;1;0;%2Fhome%2Fkp%2FGitHub%2FGoT2%2Fmeteor%2FGoT_test%2Fclient%2Ftemplates%2FnotFound.html;0;4
+FILE_NAME_14=0;HTML;0;EUTF-8;0;1;0;%2Fhome%2Fkp%2FGitHub%2FGoT2%2Fmeteor%2FGoT_test%2Fclient%2Flayout%2Fnavbar.html;0;4
+FILE_NAME_15=0;Javascript;0;EUTF-8;0;1;0;%2Fhome%2Fkp%2FGitHub%2FGoT2%2Fmeteor%2FGoT_test%2Fclient%2Flayout%2Fnavbar.js;0;4
+FILE_NAME_16=0;Javascript;0;EUTF-8;0;1;0;%2Fhome%2Fkp%2FGitHub%2FGoT2%2Fmeteor%2FGoT_test%2Fcollections%2Fmatchs.js;0;4
+FILE_NAME_17=2227;Javascript;0;EUTF-8;0;1;0;%2Fhome%2Fkp%2FGitHub%2FGoT2%2Fmeteor%2FGoT_test%2Fcollections%2Ftournois.js;0;4
+FILE_NAME_18=0;HTML;0;EUTF-8;0;1;0;%2Fhome%2Fkp%2FGitHub%2FGoT2%2Fmeteor%2FGoT_test%2Fimports%2FUI%2Ffieldset.html;0;4
+FILE_NAME_19=0;Javascript;0;EUTF-8;0;1;0;%2Fhome%2Fkp%2FGitHub%2FGoT2%2Fmeteor%2FGoT_test%2Fimports%2FUI%2Ffieldset.js;0;4
+FILE_NAME_20=0;HTML;0;EUTF-8;0;1;0;%2Fhome%2Fkp%2FGitHub%2FGoT2%2Fmeteor%2FGoT_test%2Fimports%2FUI%2Ftitle.html;0;4
+FILE_NAME_21=0;Javascript;0;EUTF-8;0;1;0;%2Fhome%2Fkp%2FGitHub%2FGoT2%2Fmeteor%2FGoT_test%2Fimports%2FUI%2Ftitle.js;0;4
+FILE_NAME_22=0;Javascript;0;EUTF-8;0;1;0;%2Fhome%2Fkp%2FGitHub%2FGoT2%2Fmeteor%2FGoT_test%2Froute%2Froute.js;0;4
+FILE_NAME_23=0;Javascript;0;EUTF-8;0;1;0;%2Fhome%2Fkp%2FGitHub%2FGoT2%2Fmeteor%2FGoT_test%2Fserver%2Fserver.js;0;4
+FILE_NAME_24=0;CSS;0;EUTF-8;0;1;0;%2Fhome%2Fkp%2FGitHub%2FGoT2%2Fmeteor%2Fmain.css;0;4
+FILE_NAME_25=0;HTML;0;EUTF-8;0;1;0;%2Fhome%2Fkp%2FGitHub%2FGoT2%2Fmeteor%2Fmain.html;0;4
+FILE_NAME_26=0;HTML;0;EUTF-8;0;1;0;%2Fhome%2Fkp%2FGitHub%2FGoT2%2Fmeteor%2Fnavbar.html;0;4
+FILE_NAME_27=0;Javascript;0;EUTF-8;0;1;0;%2Fhome%2Fkp%2FGitHub%2FGoT2%2Fmeteor%2Fnavbar.js;0;4
+FILE_NAME_28=0;HTML;0;EUTF-8;0;1;0;%2Fhome%2Fkp%2FGitHub%2FGoT2%2Fmeteor%2Fsuivre.html;0;4
 
 [VTE]
 last_dir=/home/kp
