@@ -73,7 +73,7 @@ AutoForm.hooks({
                 }
                 shuffleArray(nbJoueurs);
                 // Making array.length a power of two for conveniency TODO change comment #Lucas
-                for(let i = 1; i < 9; i++){
+                for(let i = 1; i < nbInscrits; i++){
                     if((Math.pow(2,i) < nbInscrits) && (nbInscrits < Math.pow(2,i+1))){
                         let jManquants = Math.pow(2,i+1) - nbInscrits;
                         let index = 0;
@@ -81,6 +81,7 @@ AutoForm.hooks({
                             nbJoueurs.splice(index, 0, "exempt");
                             index+=2;
                         }
+                        break;
                     }
                 }
 
