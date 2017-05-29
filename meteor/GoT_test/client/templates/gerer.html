@@ -2,7 +2,7 @@
 
   {{#if name}}
     <h1>{{name}}</h1>
-    {{#if checkTypeTournoi _id}}
+    {{#if checkTypeTournoi _id}} <!-- pour les championnats -->
     <h5>CHAMPIONNAT</h5>
       {{#if nbrMatchRestants _id}}
         <h4><a href="/suivre/{{_id}}">Suivre l'évolution de ce tournoi</a></h4>
@@ -42,7 +42,7 @@
         <h3><i>Ce tournoi est terminé</i>, le supprimer <span class="glyphicon glyphicon-remove suppr-tournoi"></span> ?</h3>
       {{/if}}
 
-    {{else}}
+    {{else}} <!-- pour l'élimination directe -->
       <h5>ELIMININATION DIRECTE</h5>
       {{#if nbrMatchRestants _id}}
         <h4><a href="/suivre/{{_id}}">Suivre l'évolution de ce tournoi</a></h4>
@@ -98,7 +98,7 @@
       {{/if}}
     {{/if}}
 
-  {{else}}
+  {{else}} <!-- pour la liste de tournois -->
     {{#if plusieursTournois}}
       <h2>Tournois</h2>
       <table class="table table-striped">

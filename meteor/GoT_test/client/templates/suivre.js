@@ -5,7 +5,7 @@
 *****/
 Template.suivre.events({
     
-    /***** clic sur [boutonSuivre]
+    /***** click #boutonSuivre
      * Input: event (clic)
      * Output: redirection
     *****/

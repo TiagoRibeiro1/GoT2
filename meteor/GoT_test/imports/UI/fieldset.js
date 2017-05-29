@@ -2,19 +2,21 @@ import { Template } from 'meteor/templating';
 
 import './fieldset.html';
 
-// Le helper permet d'exécuter du code JS dans le template
 Template.fieldset.helpers({
 
 });
 
+/*****
+ * Événements pour le template [fieldset]
+*****/
 Template.fieldset.events({
-
+    
+    /***** submit .btn_submit
+     * Input: event (clic)
+     * Output: évite que le formulaire soit soumis automatiquement
+    *****/
     'submit .btn_submit'(event) {
         // Prevent default browser form submit
         event.preventDefault();
     },
-    // 'submit .creer'(event) {
-    //     // À MODIFIER (cf. route.js & layoutApp.html)
-    //     window.open('/creer','_self');
-    // },
 });
