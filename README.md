@@ -10,7 +10,7 @@ Créez autant de tournois que vous le désirez, avec autant de joueuses et de jo
 Partagez vos résultats avec vos amies et vos amis sur toute la planète (voire plus!) grâce à la page de suivi, également mise à jour en temps réel sans besoin de demander un rafraîchissement!
 
 ## Fonctionnalités
-Actuellement, l'application gère les tournois en mode championnat, et en élimination (encore en phase de test)
+Actuellement, l'application gère les tournois en mode championnat et en élimination directe.
 
 ## Interface
 La page d'accueil permet de choisir entre la création d'un tournoi, ou le suivi en tant que spectateur.
@@ -44,7 +44,7 @@ GoT2 utilise également les packages suivants (déjà contenus dans le code, auc
     1. Aller sur https://www.meteor.com/install
     2. [Download Installer]
     3. InstallMeteor.exe (ça prend un moment)
-    
+
 - git
 
     1. https://git-scm.com/download/win
